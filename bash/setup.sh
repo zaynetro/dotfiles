@@ -35,12 +35,14 @@ fi
 
 # Validate that .bashrc sources common file
 common_str="source \".bash/common.sh\""
-bashrc_sources_common=`grep -Fxq "${common_str}" $HOME/.bashrc`
+bashrc_sources_common=`grep -Fxq "$common_str" $HOME/.bashrc`
+echo "bashrc_sources_common: $bashrc_sources_common"
 if [[ $bashrc_sources_common ]]; then
   echo "Adding sourcing to a common file to bashrc..."
-  echo "${common_str}" >> $HOME/.bashrc
+  echo "$common_str" >> $HOME/.bashrc
 fi
 
 # Copy environment files
 # TODO: don't copy setup.sh
+echo "Copying environment files..."
 cp *.sh $bash_dir
