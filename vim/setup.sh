@@ -28,7 +28,7 @@ copy_vimrc() {
 	fi
 
 	echo "Copying .vimrc..."
-	cp vimrc $HOME/
+	cp vimrc $HOME/.vimrc
 }
 
 # Install Vundle.vim only if needed
