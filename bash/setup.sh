@@ -24,11 +24,8 @@ else
 fi
 
 # Copy .bash_profile
-bash_profile_changed=`diff -q bash_profile $HOME/.bash_profile`
-if [[ ! -f $HOME/.bash_profile || ! -z $bash_profile_changed ]]; then
-  echo "Copying .bash_profile..."
-  cp bash_profile $HOME/
-fi
+echo "Copying .bash_profile..."
+cp bash_profile $HOME/
 
 # Validate that .bashrc exists
 if [[ ! -f $HOME/.bashrc ]]; then
