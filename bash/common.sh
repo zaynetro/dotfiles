@@ -17,6 +17,15 @@ if [[ -d $HOME/Code/go ]]; then
   export PATH=$PATH:$GOPATH/bin
 fi
 
+# Default editor
+export EDITOR='vim'
+
+# Show colors in the terminal
+force_color_prompt=yes
+if [[ "$TERM" == "xterm" ]]; then
+  export TERM=xterm-256color
+fi
+
 # Aliases
 alias tmux='tmux -2'
 
