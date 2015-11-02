@@ -31,13 +31,14 @@ copy_vimrc() {
 	cp vimrc $HOME/.vimrc
 }
 
-# Install Vundle.vim only if needed
-install_vundle() {
-	local vundledir=$HOME/.vim/bundle/Vundle.vim
+# Install Vim-plug only if needed
+install_vim_plug() {
+	local plugdir=$HOME/.vim/autoload/plug.vim
 
 	if [[ ! -d $vundledir ]]; then
-		echo "Cloning Vundle.vim into $vundledir..."
-		git clone https://github.com/gmarik/Vundle.vim.git $vundledir
+		echo "Saving vim-plug to $plugdir..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	fi
 }
 
@@ -66,15 +67,15 @@ install_theme() {
 }
 
 # Install Vundle plugins
-install_vundle_plugins() {
+install_plugins() {
 	if [[ -z $vimrc_changed ]]; then
+    echo "Updating vim plugins..."
+	  vim +PlugUpdate +qall
 		return
 	fi
 
-	echo "Installing Vundle plugins..."
-	vim +PluginInstall +qall
-  echo "NOTE: compile YouCompleteMe if needed"
-  echo "  https://github.com/Valloric/YouCompleteMe#installation"
+	echo "Installing vim plugins..."
+	vim +PlugInstall +qall
   echo "Remember: unlink python installed with brew"
   echo "NOTE: install go binaries if needed"
   echo "  vim -c \":GoInstallBinaries\""
@@ -82,8 +83,8 @@ install_vundle_plugins() {
 
 check_requirements
 copy_vimrc
-install_vundle
+install_vim_plug
 install_theme
-install_vundle_plugins
+install_plugins
 
 echo "Vim was set up"

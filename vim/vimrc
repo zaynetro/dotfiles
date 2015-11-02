@@ -92,40 +92,60 @@ if exists('+colorcolumn')
   set colorcolumn=80
 endif
 
-" Vundle
-filetype off                  " required
+"
+" Vim plug
+"
+function! BuildYCM(info)
+  " Don't rebuild YCM on every update
+  " Use :PlugUpdate! (forced)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --gocode-completer
+  endif
+endfunction
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" Defaults everyone can agree on
+Plug 'tpope/vim-sensible'
+" Alignment
+Plug 'godlygeek/tabular'
+" Markdown support
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Status/tabline
+Plug 'bling/vim-airline'
+" Quoting/parenthesizing
+Plug 'tpope/vim-surround'
+" Git gutter
+Plug 'airblade/vim-gitgutter'
+" Improved JavaScript indentation and syntax
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Go development
+Plug 'fatih/vim-go', { 'for': 'go' }
+" Autocompletion
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+" Highlights nginx configuration
+Plug 'nginx.vim', { 'for': 'nginx' }
+" Tree explorer
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Show git status in NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+" Commenting
+Plug 'scrooloose/nerdcommenter'
+" Syntax checking hacks
+Plug 'scrooloose/syntastic'
+" Distraction free writing
+"Plug 'junegunn/goyo.vim'
+" Continiously updated vim sessions
+Plug 'tpope/vim-obsession'
+" Navigate between vim and tmux panes
+Plug 'christoomey/vim-tmux-navigator'
+" Robot framework syntax
+Plug 'mfukar/robotframework-vim', { 'for': 'robot' }
 
-Plugin 'tpope/vim-sensible'       " Defaults everyone can agree on
-Plugin 'godlygeek/tabular'        " Alignment
-Plugin 'plasticboy/vim-markdown'
-Plugin 'bling/vim-airline'        " Status/tabline
-Plugin 'tpope/vim-surround'       " Quoting/parenthesizing
-Plugin 'airblade/vim-gitgutter'   " Git gutter
-Plugin 'pangloss/vim-javascript'  " Improved JavaScript indentation and syntax
-Plugin 'fatih/vim-go'             " Go development
-Plugin 'Valloric/YouCompleteMe'   " Autocompletion
-Plugin 'nginx.vim'                " Highlights nginx configuration
-Plugin 'scrooloose/nerdtree'      " Tree explorer
-Plugin 'Xuyuanp/nerdtree-git-plugin' " Show git status in NERDTree
-Plugin 'scrooloose/nerdcommenter' " Commenting
-Plugin 'scrooloose/syntastic'     " Syntax checking hacks
-Plugin 'junegunn/goyo.vim'        " Distraction free writing
-Plugin 'tpope/vim-obsession'      " Continiously updated vim sessions
-Plugin 'christoomey/vim-tmux-navigator' " Navigate between vim and tmux panes
-Plugin 'mfukar/robotframework-vim' " Robot framework syntax
+call plug#end()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+"filetype on
+"filetype plugin indent on    " required
 
 "
 " Plugin configurations
