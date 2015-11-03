@@ -11,7 +11,7 @@ colorscheme Tomorrow-Night-Eighties
 set background=dark
 
 " Use OS clipboard for copy/paste
-set clipboard=unnamed
+"set clipboard=unnamed
 
 " Set leader key binding
 let mapleader=","
