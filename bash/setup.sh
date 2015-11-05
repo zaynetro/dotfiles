@@ -34,7 +34,7 @@ if [[ ! -f $HOME/.bashrc ]]; then
 fi
 
 # Validate that .bashrc sources common file
-common_str="source \".bash/common.sh\""
+common_str="source ~/.bash/common.sh"
 if ! grep -Fxq "$common_str" $HOME/.bashrc; then
   echo "Adding sourcing to a common file to bashrc..."
   echo "$common_str" >> $HOME/.bashrc
