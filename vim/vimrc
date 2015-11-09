@@ -119,6 +119,8 @@ Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 " Improved JavaScript indentation and syntax
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" React JSX support
+Plug 'mxw/vim-jsx'
 " Go development
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
@@ -250,7 +252,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_auto_jump = 2
 
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 
 " == Goyo ==
