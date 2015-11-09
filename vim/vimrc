@@ -205,6 +205,13 @@ let g:javascript_enable_domhtmlcss = 1
 " :GoCallers
 " :GoChannelPeers  Show possible senders/receivers for the channel
 
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" goimport automatically inserts import paths
+let g:go_fmt_command = "goimports"
 
 " == YouCompleteMe ==
 " Does not require specific commands
