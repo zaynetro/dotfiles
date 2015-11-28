@@ -23,9 +23,6 @@ set softtabstop=2  " number of spaces in tab when editing
 set shiftwidth=2   " number of columns to use for >< commands
 filetype indent on " load filetype specific indent files
 
-" Haskell files
-autocmd FileType haskell setlocal tabstop=8 softtabstop=4 shiftwidth=4 shiftround
-
 " Show line numbers
 set number
 
@@ -66,10 +63,6 @@ imap jk <ESC>
 
 " Space open/closes folds
 nnoremap <space> za
-
-" Move between tabs easier
-nnoremap <A-j> gT  " To the left
-nnoremap <A-k> gt  " To the right
 
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
@@ -115,6 +108,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'bling/vim-airline'
 " Quoting/parenthesizing
 Plug 'tpope/vim-surround'
+
 " Git gutter
 Plug 'airblade/vim-gitgutter'
 " Improved JavaScript indentation and syntax
@@ -125,6 +119,7 @@ Plug 'mxw/vim-jsx'
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+
 " Highlights nginx configuration
 Plug 'nginx.vim', { 'for': 'nginx' }
 " Tree explorer
@@ -137,17 +132,20 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
 " Distraction free writing
 "Plug 'junegunn/goyo.vim'
+
 " Continiously updated vim sessions
 Plug 'tpope/vim-obsession'
 " Navigate between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
 " Robot framework syntax
 Plug 'mfukar/robotframework-vim', { 'for': 'robot' }
+" Rust lang support
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 call plug#end()
 
 "filetype on
-"filetype plugin indent on    " required
+"filetype plugin indent on
 
 "
 " Plugin configurations
@@ -274,3 +272,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 " == Obsession ==
 " :Obsess[ion] [file]   Start recording session
 " :Obsess[ion]!         Stop and throw away
+
+
+" == Rust lant ==
+let g:rustfmt_autosave = 1  " Auto format rust code
