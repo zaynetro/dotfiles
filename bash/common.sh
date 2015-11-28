@@ -17,6 +17,11 @@ if [[ -d $HOME/Code/go ]]; then
   export PATH=$PATH:$GOPATH/bin
 fi
 
+# Cargo
+if [[ -d $HOME/.cargo ]]; then
+  export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
 # Default editor
 export EDITOR='vim'
 
