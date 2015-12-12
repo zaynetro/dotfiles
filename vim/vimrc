@@ -141,6 +141,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'mfukar/robotframework-vim', { 'for': 'robot' }
 " Rust lang support
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Toml language syntax
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 call plug#end()
 
