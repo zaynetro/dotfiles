@@ -4,7 +4,7 @@
 "
 
 " Use Vim settings, rather than Vi
-set nocompatible
+"set nocompatible
 
 " Colorscheme
 colorscheme Tomorrow-Night-Eighties
@@ -52,7 +52,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 
 " Set gnome terminal to 256 colors support
-set t_Co=256
+"set t_Co=256
 
 " fold based on syntax
 set foldmethod=syntax
@@ -88,14 +88,6 @@ endif
 "
 " Vim plug
 "
-function! BuildYCM(info)
-  " Don't rebuild YCM on every update
-  " Use :PlugUpdate! (forced)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --gocode-completer
-  endif
-endfunction
-
 call plug#begin('~/.vim/plugged')
 
 " Defaults everyone can agree on
@@ -118,7 +110,8 @@ Plug 'mxw/vim-jsx'
 " Go development
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'Shougo/deoplete.nvim'
 
 " Highlights nginx configuration
 Plug 'nginx.vim', { 'for': 'nginx' }
@@ -143,6 +136,11 @@ Plug 'mfukar/robotframework-vim', { 'for': 'robot' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Toml language syntax
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+
+" Deoplete go autocompletion
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+" Display docs
+Plug 'Shougo/echodoc.vim'
 
 call plug#end()
 
@@ -215,9 +213,20 @@ let g:go_fmt_command = "goimports"
 " Don't collide with Syntastic
 let g:go_fmt_fail_silently = 1
 
+
 " == YouCompleteMe ==
 " Does not require specific commands
 " :help youcompleteme
+
+
+" == Deoplete ==
+let g:deoplete#enable_at_startup = 1
+" Use tab to forward cycle
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" Use tab to backward cycle
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 " == Nginx.cong ==
@@ -276,5 +285,17 @@ let g:syntastic_javascript_checkers = ['eslint']
 " :Obsess[ion]!         Stop and throw away
 
 
-" == Rust lant ==
+" == Rust lang ==
 let g:rustfmt_autosave = 1  " Auto format rust code
+
+
+" == Deoplete-go ==
+" Align second column
+let g:deoplete#sources#go#align_class = 1
+
+
+" == Echodoc ==
+set cmdheight=2
+let g:echodoc_enable_at_startup = 1
+" Disable preview window
+set completeopt-=preview
