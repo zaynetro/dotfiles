@@ -141,6 +141,13 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 " Display docs
 Plug 'Shougo/echodoc.vim'
+" Haskell ghc mod
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' } |
+\ Plug 'Shougo/vimproc.vim', { 'do': 'make' } " dependency
+" Haskell autocompletion
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+" Haskell syntax
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 
 call plug#end()
 
@@ -299,3 +306,14 @@ set cmdheight=2
 let g:echodoc_enable_at_startup = 1
 " Disable preview window
 set completeopt-=preview
+
+
+" == Haskell ghc mod ==
+" Insert signature of selected expression
+map <silent> tw :GhcModTypeInsert<CR>
+" Insert missing function implemenations
+map <silent> ts :GhcModSplitFunCase<CR>
+" Query expression type (multiple times to expand)
+map <silent> tq :GhcModType<CR>
+" Clear selection
+map <silent> te :GhcModTypeClear<CR>
