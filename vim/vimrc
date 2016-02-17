@@ -6,6 +6,9 @@
 " Use Vim settings, rather than Vi
 set nocompatible
 
+" Enable mouse in all modes
+set mouse=a
+
 " Colorscheme
 colorscheme Tomorrow-Night-Eighties
 set background=dark
