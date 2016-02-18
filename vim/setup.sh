@@ -29,13 +29,16 @@ copy_vimrc() {
 
 	echo "Copying .vimrc..."
 	cp vimrc $HOME/.vimrc
+
+  echo "Linking to $nvim_dir/nvim/init.vim"
+  ln -s $HOME/.vimrc $nvim_dir/nvim/init.vim
 }
 
 # Install Vim-plug only if needed
 install_vim_plug() {
 	local plugdir=$HOME/.vim/autoload/plug.vim
 
-	if [[ ! -d $vundledir ]]; then
+	if [[ ! -d $plugdir ]]; then
 		echo "Saving vim-plug to $plugdir..."
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -76,9 +79,45 @@ install_plugins() {
 
 	echo "Installing vim plugins..."
 	vim +PlugInstall +qall
-  echo "Remember: unlink python installed with brew"
   echo "NOTE: install go binaries if needed"
   echo "  vim -c \":GoInstallBinaries\""
+}
+
+neovim_specific() {
+  local nvim_dir="$HOME/.config"
+
+  if [[ ! -d $nvim_dir ]]; then
+    echo "Creating config dir $nvimdir.."
+    mkdir $nvim_dir
+  fi
+
+  if [[ ! -d "$nvim_dir/nvim" ]]; then
+    echo "Linking nvimdir $nvimdir/nvim.."
+    ln -s $HOME/.vim $nvim_dir/nvim
+  fi
+
+  local nvimloc=`which nvim`
+  if [[ ! -x $nvimloc ]]; then
+    echo "nvim is NOT installed, consider installing"
+    echo "Skipping neovim specific installations.."
+    return
+  fi
+
+  local pip3loc=`which pip3`
+  if [[ ! -x $pip3loc ]]; then
+    echo "pip3 is NOT installed"
+    echo "Skipping deoplete installation..."
+    return
+  fi
+
+  local python_neovim=`pip3 list | grep neovim | wc -l`
+  if [[ $python_neovim -eq 0 ]]; then
+    echo "Installing neovim python3 support..."
+    pip3 install neovim
+  fi
+
+  echo "Updating deoplete..."
+  nvim +UpdateRemotePlugins +qall
 }
 
 check_requirements
@@ -86,5 +125,6 @@ copy_vimrc
 install_vim_plug
 install_theme
 install_plugins
+neovim_specific
 
 echo "Vim was set up"
