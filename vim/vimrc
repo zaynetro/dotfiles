@@ -47,6 +47,9 @@ set ignorecase
 " Highlight search results
 set hlsearch
 
+" Char to show on the wrapped lines
+set showbreak=⇇
+
 " Store vim tmp files in different directory
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
