@@ -329,6 +329,18 @@ map <silent> tq :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
 
 
+" == CtrlP ==
+" open with <c-p>
+" cycle using <c-j>, <c-k>
+" <c-n>, <c-p> to the next previous string in the history
+" <c-y> to create new file
+" <c-z> to mark/unmark files and <c-o> to open them
+" <c-d> search by filename (not path)
+" <c-r> switch to regex mode
+" <c-f>, <c-b> cycle between modes
+" <F5> refresh cache
+nnoremap <Leader>pl :CtrlPLine<Cr>
+
 " == CtrlP funky ==
 let g:ctrlp_funky_syntax_highlight = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
