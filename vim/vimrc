@@ -151,6 +151,8 @@ Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' } |
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 " Haskell syntax
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+" Finder
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
