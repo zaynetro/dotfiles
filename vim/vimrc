@@ -151,8 +151,11 @@ Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' } |
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 " Haskell syntax
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+
 " Finder
 Plug 'ctrlpvim/ctrlp.vim'
+" Add function defs to ctrlp
+Plug 'tacahiroy/ctrlp-funky'
 
 call plug#end()
 
@@ -324,3 +327,8 @@ map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
 " Clear selection
 map <silent> te :GhcModTypeClear<CR>
+
+
+" == CtrlP funky ==
+let g:ctrlp_funky_syntax_highlight = 1
+nnoremap <Leader>fu :CtrlPFunky<Cr>
