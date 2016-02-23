@@ -343,6 +343,7 @@ map <silent> te :GhcModTypeClear<CR>
 " <c-f>, <c-b> cycle between modes
 " <F5> refresh cache
 nnoremap <Leader>pl :CtrlPLine<Cr>
+let g:ctrlp_custom_ignore = '\v[\/](node_modules)|(\.(git))$'
 
 " == CtrlP funky ==
 let g:ctrlp_funky_syntax_highlight = 1
