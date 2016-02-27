@@ -26,6 +26,8 @@ set softtabstop=2  " number of spaces in tab when editing
 set shiftwidth=2   " number of columns to use for >< commands
 filetype indent on " load filetype specific indent files
 
+autocmd Filetype haskell setlocal ts=4 sts=4 sw=4 expandtab
+
 " Show line numbers
 set number
 
