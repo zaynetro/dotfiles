@@ -119,7 +119,9 @@ Plug 'mxw/vim-jsx'
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
 "Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'Shougo/deoplete.nvim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
+endif
 
 " Highlights nginx configuration
 Plug 'nginx.vim', { 'for': 'nginx' }
@@ -146,7 +148,9 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 " Deoplete go autocompletion
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+if has('nvim')
+  Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+endif
 " Display docs
 Plug 'Shougo/echodoc.vim'
 " Haskell ghc mod
@@ -240,14 +244,17 @@ let g:go_fmt_fail_silently = 1
 
 
 " == Deoplete ==
-let g:deoplete#enable_at_startup = 1
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+endif
 " Use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " Use tab to backward cycle
 inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 " Close the documentation window when completion is done
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
+if has('nvim')
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+endif
 
 " == Nginx.cong ==
 " :setfiletype nginx   To enable
@@ -313,8 +320,9 @@ let g:rustfmt_autosave = 1  " Auto format rust code
 
 " == Deoplete-go ==
 " Align second column
-let g:deoplete#sources#go#align_class = 1
-
+if has('nvim')
+  let g:deoplete#sources#go#align_class = 1
+endif
 
 " == Echodoc ==
 set cmdheight=2
