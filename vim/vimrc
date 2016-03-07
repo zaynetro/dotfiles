@@ -64,7 +64,7 @@ set writebackup
 
 " fold based on syntax
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=99
 
 " Quick escape
 imap jk <ESC>
