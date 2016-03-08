@@ -41,6 +41,9 @@ if ! grep -Fxq "$common_str" $HOME/.bashrc; then
 fi
 
 # Copy environment files
-# TODO: don't copy setup.sh
 echo "Copying environment files..."
 cp *.sh $bash_dir
+rm $bash_dir/setup.sh
+
+echo "Sourcing $HOME/.bash_profile..."
+source $HOME/.bash_profile

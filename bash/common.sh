@@ -1,10 +1,5 @@
 # Common bash environment
 
-# Ruby
-if [[ -d $HOME/.rvm ]]; then
-  export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-fi
-
 # Nvm
 if [[ -d $HOME/.nvm ]]; then
   export NVM_DIR="$HOME/.nvm"
@@ -20,6 +15,11 @@ fi
 # Cargo
 if [[ -d $HOME/.cargo ]]; then
   export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+# Stack
+if [[ -d $HOME/.local ]]; then
+  export PATH="$PATH:$HOME/.local/bin"
 fi
 
 # Default editor
@@ -41,7 +41,12 @@ bind "set completion-ignore-case on"
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
 export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
+# append to history, don't overwrite it
+shopt -s histappend
+#Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+# Useful timestamp format
+HISTTIMEFORMAT='%F %T '
 
 # Git aware prompt
 export GITAWAREPROMPT=$HOME/.bash/git-aware-prompt
