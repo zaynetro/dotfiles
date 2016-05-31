@@ -69,7 +69,7 @@ install_theme() {
 	echo "  $themedir"
 }
 
-# Install Vundle plugins
+# Install vim plug plugins
 install_plugins() {
 	if [[ -z $vimrc_changed ]]; then
     echo "Updating vim plugins..."
@@ -86,6 +86,13 @@ install_plugins() {
 neovim_specific() {
   local nvim_dir="$HOME/.config"
 
+  local nvimloc=`which nvim`
+  if [[ ! -x $nvimloc ]]; then
+    echo "nvim is NOT installed, consider installing"
+    echo "Skipping neovim specific installations.."
+    return
+  fi
+
   if [[ ! -d $nvim_dir ]]; then
     echo "Creating config dir $nvimdir.."
     mkdir $nvim_dir
@@ -94,13 +101,6 @@ neovim_specific() {
   if [[ ! -d "$nvim_dir/nvim" ]]; then
     echo "Linking nvimdir $nvimdir/nvim.."
     ln -s $HOME/.vim $nvim_dir/nvim
-  fi
-
-  local nvimloc=`which nvim`
-  if [[ ! -x $nvimloc ]]; then
-    echo "nvim is NOT installed, consider installing"
-    echo "Skipping neovim specific installations.."
-    return
   fi
 
   local pip3loc=`which pip3`
@@ -114,9 +114,12 @@ neovim_specific() {
   if [[ $python_neovim -eq 0 ]]; then
     echo "Installing neovim python3 support..."
     pip3 install neovim
+  else
+    echo "Updating neovim python3 support..."
+    pip3 install --upgrade neovim
   fi
 
-  echo "Updating deoplete..."
+  echo "Updating remote plugins..."
   nvim +UpdateRemotePlugins +qall
 }
 
