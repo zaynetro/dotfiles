@@ -179,7 +179,7 @@ call plug#end()
 "
 
 " == Vim sensible ==
-" :set list   Makes whitespace chars visible
+set list   "Makes whitespace chars visible
 
 
 " == Tabular ==
