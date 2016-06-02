@@ -31,6 +31,9 @@ autocmd Filetype haskell setlocal ts=4 sts=4 sw=4 expandtab
 " Show line numbers
 set number
 
+" Show relative line numbers
+set relativenumber
+
 " Highlight current line
 set cursorline
 
