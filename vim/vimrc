@@ -75,6 +75,13 @@ imap jk <ESC>
 " Space open/closes folds
 nnoremap <space> za
 
+" Fix <C-h> in neovim and tmux
+" https://github.com/neovim/neovim/issues/2048
+" https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
+if has('nvim')
+  nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+endif
+
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
