@@ -29,9 +29,6 @@ copy_vimrc() {
 
 	echo "Copying .vimrc..."
 	cp vimrc $HOME/.vimrc
-
-  echo "Linking to $nvim_dir/nvim/init.vim"
-  ln -s $HOME/.vimrc $nvim_dir/nvim/init.vim
 }
 
 # Install Vim-plug only if needed
@@ -101,6 +98,11 @@ neovim_specific() {
   if [[ ! -d "$nvim_dir/nvim" ]]; then
     echo "Linking nvimdir $nvimdir/nvim.."
     ln -s $HOME/.vim $nvim_dir/nvim
+  fi
+
+  if [[ ! -f "$nvim_dir/nvim/init.vim" ]]; then
+    echo "Linking to $nvim_dir/nvim/init.vim.."
+    ln -s $HOME/.vimrc $nvim_dir/nvim/init.vim
   fi
 
   local pip3loc=`which pip3`

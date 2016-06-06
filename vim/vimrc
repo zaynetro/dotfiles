@@ -246,6 +246,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 " Don't collide with Syntastic
 let g:go_fmt_fail_silently = 1
+let g:go_list_type = "quickfix"
 
 
 " == YouCompleteMe ==
@@ -308,8 +309,14 @@ let g:syntastic_cursor_column = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_enable_balloons = 0
+let g:syntastic_aggregate_errors = 1
 
 let g:syntastic_javascript_checkers = ['eslint']
+
+" https://github.com/alecthomas/gometalinter
+" To refresh dependencies: `gometalinter --update --install --force`
+let g:syntastic_go_checkers = ['gometalinter']
+let g:syntastic_go_gometalinter_args = '--fast --vendor -D gotype'
 
 
 " == Goyo ==
