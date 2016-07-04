@@ -144,7 +144,7 @@ Plug 'scrooloose/nerdcommenter'
 " Syntax checking hacks
 Plug 'scrooloose/syntastic'
 " Distraction free writing
-"Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 
 " Continiously updated vim sessions
 Plug 'tpope/vim-obsession'
