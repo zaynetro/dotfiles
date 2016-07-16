@@ -147,7 +147,7 @@ Plug 'scrooloose/syntastic'
 Plug 'junegunn/goyo.vim'
 
 " Continiously updated vim sessions
-Plug 'tpope/vim-obsession'
+"Plug 'tpope/vim-obsession'
 " Navigate between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
 " Robot framework syntax
