@@ -177,6 +177,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 " Surf through buffers historically
 Plug 'ton/vim-bufsurf'
+" Search in files
+Plug 'dyng/ctrlsf.vim'
 
 call plug#end()
 
@@ -383,3 +385,21 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 " == BufSurf ==
 nnoremap <Leader>pp :BufSurfBack<Cr>
 nnoremap <Leader>nn :BufSurfForward<Cr>
+
+
+" == CtrlSF ==
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+nmap     <C-F>l <Plug>CtrlSFQuickfixPrompt
+vmap     <C-F>l <Plug>CtrlSFQuickfixVwordPath
+vmap     <C-F>L <Plug>CtrlSFQuickfixVwordExec
+
+"let g:ctrlsf_auto_close = 0
+"let g:ctrlsf_confirm_save = 0 " Turn off file edit confirmation
+let g:ctrlsf_indent = 2 " Spaces between line number and line content
