@@ -47,6 +47,8 @@ install_theme() {
 	local colordir=$HOME/.vim/colors
 	local tmpdir=/tmp
 
+  echo "Set up terminal color for hybrid theme: https://github.com/w0ng/vim-hybrid/"
+
 	if [[ -d $colordir ]]; then
 		local themes=`ls -l $colordir | grep -e 'Tomorrow.*\.vim$' | wc -l`
 
