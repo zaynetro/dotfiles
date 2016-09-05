@@ -142,7 +142,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 " Commenting
 Plug 'scrooloose/nerdcommenter'
 " Syntax checking hacks
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 
@@ -181,6 +181,9 @@ Plug 'ton/vim-bufsurf'
 Plug 'dyng/ctrlsf.vim'
 " Hybrid color theme
 Plug 'w0ng/vim-hybrid'
+
+" Neomake syntastic replacement for neovim
+Plug 'neomake/neomake'
 
 call plug#end()
 
@@ -410,3 +413,10 @@ let g:ctrlsf_indent = 2 " Spaces between line number and line content
 " == Hybrid theme ==
 colorscheme hybrid
 let g:hybrid_custom_term_colors = 1
+
+
+" == Neomake ==
+let g:neomake_javascript_enabled_makers = ['eslint']
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 2
+let g:neomake_list_height = 2
