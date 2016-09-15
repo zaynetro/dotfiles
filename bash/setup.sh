@@ -25,7 +25,7 @@ fi
 
 # Copy .bash_profile
 echo "Copying .bash_profile..."
-cp bash_profile $HOME/
+cp bash_profile $HOME/.bash_profile
 
 # Validate that .bashrc exists
 if [[ ! -f $HOME/.bashrc ]]; then
