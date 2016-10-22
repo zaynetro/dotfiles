@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi compton i3blocks"
+apps="feh arandr lxappearance rofi compton i3blocks xbacklight"
 
 echo "Installing apps..."
 sudo apt install -y $apps
