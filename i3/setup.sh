@@ -65,4 +65,4 @@ cp i3blocks.conf ~/.config/i3/i3blocks.conf
 echo "Copying i3 configuration file..."
 cp config ~/.config/i3/
 
-echo "Restart i3 with $mod+Shift+r"
+echo "Restart i3 with mod+Shift+r"

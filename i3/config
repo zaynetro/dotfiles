@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -17,7 +17,7 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 15
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -176,8 +176,10 @@ bar {
 
 bindsym $mod+Shift+x exec i3lock --color "$bg-color"
 
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -fullscreen -padding 100 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -fullscreen -padding 100 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Dejavu Sans Mono 18"
 
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
-exec --no-startup-id compton -f -D 2
+exec --no-startup-id compton -f -D 5
 exec --no-startup-id nm-applet
+# Increase trackpoint sensitivity
+exec --no-startup-id "xinput --set-prop 12 \"Device Accel Constant Deceleration\" 0.3"
