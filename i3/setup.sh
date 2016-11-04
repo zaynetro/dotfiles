@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi compton i3blocks xbacklight"
+apps="feh arandr lxappearance rofi compton i3blocks xbacklight syncthing"
 
 echo "Installing apps..."
 sudo apt install -y $apps
@@ -56,6 +56,14 @@ if [ ! "$(apt-cache show paper-icon-theme)" ]; then
 else
   echo "paper icon theme is installed, skipping..."
 fi
+
+echo "Suspending on lid close..."
+# TODO: uncomment `HandleLidSwitch=suspend` line
+if [ ! -d "/etc/acpi/local" ]; then
+  echo "Creating /etc/acpi/local..."
+  sudo mkdir /etc/acpi/local
+fi
+sudo cp lid.sh.post /etc/acpi/local/
 
 # Configure i3blocks
 echo "Configuring i3block..."

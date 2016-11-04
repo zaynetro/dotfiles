@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if grep -q closed /proc/acpi/button/lid/*/state
+then
+   /usr/sbin/pm-suspend
+fi

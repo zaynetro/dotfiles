@@ -191,4 +191,5 @@ exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
 exec --no-startup-id compton -f -D 5
 exec --no-startup-id nm-applet
 # Increase trackpoint sensitivity
-exec --no-startup-id "xinput --set-prop 12 \"Device Accel Constant Deceleration\" 0.3"
+exec --no-startup-id "xinput --set-prop 11 'Device Accel Constant Deceleration' 0.2"
+exec --no-startup-id syncthing -no-browser
