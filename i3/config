@@ -187,8 +187,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
+# Screenshots
+bindsym Print exec gnome-screenshot
+bindsym $mod+Print exec gnome-screenshot -i
+
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
-exec --no-startup-id compton -f -D 5
 exec --no-startup-id nm-applet
 # Increase trackpoint sensitivity
 exec --no-startup-id "xinput --set-prop 11 'Device Accel Constant Deceleration' 0.2"

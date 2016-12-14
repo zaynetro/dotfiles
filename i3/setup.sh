@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi compton i3blocks xbacklight syncthing"
+apps="feh arandr lxappearance rofi i3blocks xbacklight syncthing ranger"
 
 echo "Installing apps..."
 sudo apt install -y $apps
@@ -58,7 +58,7 @@ else
 fi
 
 echo "Suspending on lid close..."
-# TODO: uncomment `HandleLidSwitch=suspend` line
+# TODO: uncomment `HandleLidSwitch=suspend` line in /etc/systemd/logind.conf
 if [ ! -d "/etc/acpi/local" ]; then
   echo "Creating /etc/acpi/local..."
   sudo mkdir /etc/acpi/local
