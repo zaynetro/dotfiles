@@ -1,6 +1,6 @@
 # Common bash environment
 
-# Nvm
+# nvm
 if [[ -d $HOME/.nvm ]]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -64,3 +64,6 @@ case $OSTYPE in
     source "$HOME/.bash/linux.sh"
     ;;
 esac
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
