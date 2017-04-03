@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [[ ! -a "$HOME/.vimrc" ]]; then
   touch "$HOME/.vimrc"
 fi
