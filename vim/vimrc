@@ -3,57 +3,50 @@
 " //github.com/zaynetro
 "
 
-" Use Vim settings, rather than Vi
-"set nocompatible
+" Vim options {{{
 
-" Enable mouse in all modes
-set mouse=a
-
-" Colorscheme
-"colorscheme Tomorrow-Night-Eighties
+set modelines=1       " Enable file specific overrides
+"set nocompatible     " Use Vim settings, rather than Vi (not working in neovim)
+set mouse=a           " Enable mouse in all modes
 set background=dark
+set number            " Show line numbers
+set relativenumber    " Show relative line numbers
+set cursorline        " Highlight current line
+set lazyredraw        " Redraw only when need to
+set showmatch         " Highlight matching [{()}]
+set incsearch         " Search as characters are entered
+set ignorecase        " Case-insensitive search
+set hlsearch          " Highlight search results
+set showbreak=⇇       " Char to show on the wrapped lines
 
-" Use OS clipboard for copy/paste
-"set clipboard=unnamed
+" }}}
 
-" Set leader key binding
-let mapleader=","
 
-" Formatting options
-set expandtab      " tabs are spaces
-set tabstop=2      " number of visual spaces per tab
-set softtabstop=2  " number of spaces in tab when editing
-set shiftwidth=2   " number of columns to use for >< commands
-filetype indent on " load filetype specific indent files
+" Key mappings {{{
+
+let mapleader=","     " Set leader key binding
+" Quick escape
+imap jk <ESC>
+" Space open/closes folds
+nnoremap <space> za
+
+" }}}
+
+
+" Formatting options {{{
+
+set expandtab         " Tabs are spaces
+set tabstop=2         " Number of visual spaces per tab
+set softtabstop=2     " Number of spaces in tab when editing
+set shiftwidth=2      " Number of columns to use for >< commands
+filetype indent on    " Load filetype specific indent files
 
 autocmd Filetype haskell setlocal ts=4 sts=4 sw=4 expandtab
 
-" Show line numbers
-set number
+" }}}
 
-" Show relative line numbers
-set relativenumber
 
-" Highlight current line
-set cursorline
-
-" Redraw only when need to
-set lazyredraw
-
-" Highlight matching [{()}]
-set showmatch
-
-" Search as characters are entered
-set incsearch
-
-" Case-insensitive search
-set ignorecase
-
-" Highlight search results
-set hlsearch
-
-" Char to show on the wrapped lines
-set showbreak=⇇
+" Backups {{{
 
 " Store vim tmp files in different directory
 set backup
@@ -62,18 +55,18 @@ set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 
-" Set gnome terminal to 256 colors support
-"set t_Co=256
+" }}}
 
-" fold based on syntax
-set foldmethod=syntax
+
+" Folding {{{
+
+set foldmethod=syntax    " Fold based on syntax
 set foldlevelstart=99
 
-" Quick escape
-imap jk <ESC>
+" }}}
 
-" Space open/closes folds
-nnoremap <space> za
+
+" Functions {{{
 
 " Fix <C-h> in neovim and tmux
 " https://github.com/neovim/neovim/issues/2048
@@ -82,8 +75,7 @@ if has('nvim')
   nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 endif
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
+" Strips trailing whitespace at the end of files
 function! <SID>StripTrailingWhitespaces()
     " save last search & cursor position
     let _s=@/
@@ -103,9 +95,12 @@ if exists('+colorcolumn')
   set colorcolumn=80
 endif
 
-"
+" }}}
+
+
+" Plugins {{{
+
 " Vim plug
-"
 call plug#begin('~/.vim/plugged')
 
 " Defaults everyone can agree on
@@ -189,12 +184,10 @@ Plug 'Konfekt/FastFold'
 
 call plug#end()
 
-"filetype on
-"filetype plugin indent on
+" }}}
 
-"
-" Plugin configurations
-"
+
+" Plugin configurations {{{
 
 " == Vim sensible ==
 set list   "Makes whitespace chars visible
@@ -427,3 +420,7 @@ let g:neomake_list_height = 2
 
 " == FastFold ==
 let g:fastfold_savehook = 0 " Don't calculate folds on buffer save
+
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0

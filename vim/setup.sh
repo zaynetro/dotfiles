@@ -42,32 +42,6 @@ install_vim_plug() {
   fi
 }
 
-# Install Tomorrow theme if needed
-install_theme() {
-  local colordir=$HOME/.vim/colors
-  local tmpdir=/tmp
-
-  echo "Set up terminal color for hybrid theme: https://github.com/w0ng/vim-hybrid/"
-
-  if [[ -d $colordir ]]; then
-    local themes=`ls -l $colordir | grep -e 'Tomorrow.*\.vim$' | wc -l`
-
-    if [[ $themes -gt "0" ]]; then
-      return
-    fi
-  fi
-
-  echo "Installing Tomorrow-Night theme..."
-  local themedir="$tmpdir/tomorrow"
-  git clone https://github.com/chriskempson/tomorrow-theme.git $themedir
-
-  # Copy vim theme colors
-  cp -R $themedir/vim/* $HOME/.vim/
-
-  echo "Tomorrow theme location:"
-  echo "  $themedir"
-}
-
 # Install vim plug plugins
 install_plugins() {
   if [[ -z $vimrc_changed ]]; then
@@ -130,7 +104,6 @@ neovim_specific() {
 check_requirements
 copy_vimrc
 install_vim_plug
-install_theme
 install_plugins
 neovim_specific
 
