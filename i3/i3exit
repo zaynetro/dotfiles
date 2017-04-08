@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# https://www.reddit.com/r/i4wm/comments/3qwci5/ubuntu_1510_i3_on_a_laptop_best_way_to_save_power/
+
+case "$1" in
+    lock)
+        i3lock -c 2f343f
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        i3lock -c 2f343f && systemctl suspend
+        ;;
+    hibernate)
+        i3lock -c 2f343f && systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac

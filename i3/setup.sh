@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi i3blocks xbacklight syncthing ranger"
+apps="feh arandr lxappearance rofi i3blocks xbacklight ranger"
 
 echo "Installing apps..."
 sudo apt install -y $apps
@@ -68,6 +68,10 @@ sudo cp lid.sh.post /etc/acpi/local/
 # Configure i3blocks
 echo "Configuring i3block..."
 cp i3blocks.conf ~/.config/i3/i3blocks.conf
+
+# Configure i3exit script
+echo "Configuring exit script..."
+cp i3exit ~/.config/i3/i3exit
 
 # Configure i3
 echo "Copying i3 configuration file..."
