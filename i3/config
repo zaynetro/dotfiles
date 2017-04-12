@@ -148,7 +148,7 @@ bindsym $mod+r mode "resize"
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h)  hibernate, (r) reboot, (Shift+s) shutdown
 
 mode "$mode_system" {
-  set $i3exit /home/zaynetro/.config/i3/i3exit
+  set $i3exit ~/.config/i3/i3exit
 
   bindsym l exec "$i3exit lock", mode "default"
   bindsym e exec --no-startup-id "$i3exit logout", mode "default"
