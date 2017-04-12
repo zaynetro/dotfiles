@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# This script works for Intel only
+# First make brightness file accessible for the current user:
+# `sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness`
+
+file="/sys/class/backlight/intel_backlight/brightness"
+current=`cat $file`
+new="$current"
+
+if [ "$1" = "-inc" ]; then
+  new=$(( current + $2 ))
+elif [ "$1" = "-dec" ]; then
+  new=$(( current - $2 ))
+else
+  echo "Unknown parameter '$1'"
+  echo "Usage $0 -inc|-dec <val>"
+  exit 1
+fi
+
+echo "$new" | tee "$file"

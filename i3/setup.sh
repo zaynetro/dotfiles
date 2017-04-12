@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi i3blocks xbacklight ranger"
+apps="feh arandr lxappearance rofi i3blocks ranger"
 
 echo "Installing apps..."
 sudo apt install -y $apps
@@ -72,6 +72,10 @@ cp i3blocks.conf ~/.config/i3/i3blocks.conf
 # Configure i3exit script
 echo "Configuring exit script..."
 cp i3exit ~/.config/i3/i3exit
+
+# Configure brightness script
+echo "Configuring brightness script..."
+cp brightness ~/.config/i3/brightness
 
 # Configure i3
 echo "Copying i3 configuration file..."
