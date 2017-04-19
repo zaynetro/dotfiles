@@ -4,7 +4,7 @@ set -e
 
 # Configure i3 window manager
 
-apps="feh arandr lxappearance rofi i3blocks ranger"
+apps="feh arandr lxappearance rofi i3blocks ranger thunar"
 
 echo "Installing apps..."
 sudo apt install -y $apps
