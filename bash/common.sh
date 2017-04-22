@@ -67,3 +67,7 @@ esac
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
+
+# Use VI editing mode
+# http://www.catonmat.net/blog/bash-vi-editing-mode-cheat-sheet/
+set -o vi
