@@ -220,3 +220,7 @@ exec --no-startup-id "xinput --set-prop $(xinput | grep 'TrackPoint' | grep -o '
 
 # For Caps_Lock key indicator
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+
+# Move focused workspace to monitor (bracketleft = [)
+bindsym $mod+Shift+bracketleft move workspace to output up
+bindsym $mod+Shift+bracketright move workspace to output down
