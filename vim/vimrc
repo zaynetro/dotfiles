@@ -130,7 +130,7 @@ if has('nvim')
 endif
 
 " Highlights nginx configuration
-Plug 'nginx.vim', { 'for': 'nginx' }
+Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
 " Tree explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Show git status in NERDTree

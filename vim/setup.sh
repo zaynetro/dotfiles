@@ -51,7 +51,7 @@ install_plugins() {
   fi
 
   echo "Installing vim plugins..."
-  vim +PlugInstall +qall
+  vim +PlugInstall! +qall
   echo "NOTE: install go binaries if needed"
   echo "  vim -c \":GoInstallBinaries\""
 }
