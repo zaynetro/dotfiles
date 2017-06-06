@@ -10,14 +10,20 @@ vimrc_changed=`diff -q vimrc $HOME/.vimrc`
 check_requirements() {
   local vimloc=`which vim`
   if [[ ! -x $vimloc ]]; then
-          echo "vim is required"
-          exit 1
+    echo "vim is required"
+    exit 1
   fi
 
   local gitloc=`which git`
   if [[ ! -x $gitloc ]]; then
-          echo "git is required"
-          exit 1
+    echo "git is required"
+    exit 1
+  fi
+
+  local curl_loc=`which pip3`
+  if [[ ! -x $curl_loc ]]; then
+    echo "curl is required"
+    exit 1
   fi
 }
 
@@ -44,16 +50,13 @@ install_vim_plug() {
 
 # Install vim plug plugins
 install_plugins() {
-  if [[ -z $vimrc_changed ]]; then
-    echo "Updating vim plugins..."
-    vim +PlugUpdate +qall
-    return
-  fi
-
   echo "Installing vim plugins..."
-  vim +PlugInstall! +qall
-  echo "NOTE: install go binaries if needed"
-  echo "  vim -c \":GoInstallBinaries\""
+  local nvimloc=`which nvim`
+  if [[ ! -x $nvimloc ]]; then
+    vim +PlugInstall! +qall
+  else
+    nvim +PlugInstall! +qall
+  fi
 }
 
 neovim_specific() {
@@ -66,10 +69,8 @@ neovim_specific() {
     return
   fi
 
-  if [[ ! -d $nvim_dir ]]; then
-    echo "Creating config dir $nvimdir.."
-    mkdir $nvim_dir
-  fi
+  echo "Creating config dir $nvimdir.."
+  mkdir -p $nvim_dir
 
   if [[ ! -d "$nvim_dir/nvim" ]]; then
     echo "Linking nvimdir $nvimdir/nvim.."
@@ -88,7 +89,7 @@ neovim_specific() {
     return
   fi
 
-  local python_neovim=`pip3 list | grep neovim | wc -l`
+  local python_neovim=`pip3 list --format=columns | grep neovim | wc -l`
   if [[ $python_neovim -eq 0 ]]; then
     echo "Installing neovim python3 support..."
     pip3 install neovim
