@@ -124,7 +124,6 @@ Plug 'mxw/vim-jsx'
 " Go development
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
-"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
 endif
@@ -142,8 +141,6 @@ Plug 'scrooloose/nerdcommenter'
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 
-" Continiously updated vim sessions
-"Plug 'tpope/vim-obsession'
 " Navigate between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
 " Robot framework syntax
@@ -169,8 +166,6 @@ Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 
 " Finder
 Plug 'ctrlpvim/ctrlp.vim'
-" Add function defs to ctrlp
-Plug 'tacahiroy/ctrlp-funky'
 " Surf through buffers historically
 Plug 'ton/vim-bufsurf'
 " Search in files
@@ -262,12 +257,6 @@ let g:go_list_type = "quickfix"
 " }}}
 
 
-" == YouCompleteMe == {{{2
-" Does not require specific commands
-" :help youcompleteme
-" }}}
-
-
 " == Deoplete == {{{2
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
@@ -304,6 +293,7 @@ let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 " <leader>c$   Comments current line till the end of line
 " <leader>cA   The same as <leader>c$ , but ends in insert mode
 " <leader>cu   Uncomment the selected line(s)
+let NERDSpaceDelims=1 " Leave a space after the comment character
 " }}}
 
 
@@ -347,12 +337,6 @@ let g:syntastic_go_gometalinter_args = '--fast --vendor -D gotype'
 " }}}
 
 
-" == Obsession == {{{2
-" :Obsess[ion] [file]   Start recording session
-" :Obsess[ion]!         Stop and throw away
-" }}}
-
-
 " == Rust lang == {{{2
 let g:rustfmt_autosave = 1  " Auto format rust code
 " }}}
@@ -368,7 +352,8 @@ endif
 
 " == Echodoc == {{{2
 set cmdheight=2
-let g:echodoc_enable_at_startup = 1
+set noshowmode
+let g:echodoc#enable_at_startup = 1
 " Disable preview window
 set completeopt-=preview
 " }}}
@@ -403,11 +388,6 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor --nogroup --hidden
 let g:ctrlp_custom_ignore = '\v[\/](node_modules)|(\.(git))$'
 " }}}
 
-
-" == CtrlP funky == {{{2
-let g:ctrlp_funky_syntax_highlight = 1
-nnoremap <Leader>fu :CtrlPFunky<Cr> nnoremap <Leader>fu :CtrlPFunky<Cr>
-" }}}
 
 
 " == BufSurf == {{{2
