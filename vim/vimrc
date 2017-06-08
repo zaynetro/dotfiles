@@ -134,10 +134,6 @@ Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Show git status in NERDTree
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-" Commenting
-Plug 'scrooloose/nerdcommenter'
-" Syntax checking hacks
-"Plug 'scrooloose/syntastic'
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 
@@ -177,6 +173,8 @@ Plug 'w0ng/vim-hybrid'
 Plug 'neomake/neomake'
 " Calculate folding only when folds are used
 Plug 'Konfekt/FastFold'
+" Commenting
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
