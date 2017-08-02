@@ -96,6 +96,9 @@ if exists('+colorcolumn')
   set colorcolumn=80
 endif
 
+" Formats JSON
+command! FormatJSON %!python -m json.tool
+
 " }}}
 
 
