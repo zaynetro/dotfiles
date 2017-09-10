@@ -5,6 +5,10 @@
 
 " Vim options {{{
 
+" No menus (:help menu.vim)
+let did_install_default_menus = 1
+let did_install_syntax_menu = 1
+
 set modelines=1       " Enable file specific overrides
 "set nocompatible     " Use Vim settings, rather than Vi (not working in neovim)
 set mouse=a           " Enable mouse in all modes
@@ -109,14 +113,10 @@ call plug#begin('~/.vim/plugged')
 
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
-" Alignment
-Plug 'godlygeek/tabular'
 " Markdown support
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Status/tabline
 Plug 'bling/vim-airline'
-" Quoting/parenthesizing
-Plug 'tpope/vim-surround'
 
 " Git gutter
 Plug 'airblade/vim-gitgutter'
@@ -149,17 +149,8 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Toml support
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 
-" Deoplete go autocompletion
-if has('nvim')
-  Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-endif
 " Display docs
 Plug 'Shougo/echodoc.vim'
-" Haskell ghc mod
-Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' } |
-\ Plug 'Shougo/vimproc.vim', { 'do': 'make' } " dependency
-" Haskell autocompletion
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 " Haskell syntax
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 
@@ -176,8 +167,12 @@ Plug 'w0ng/vim-hybrid'
 Plug 'neomake/neomake'
 " Calculate folding only when folds are used
 Plug 'Konfekt/FastFold'
+" Language server plugin
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 " Commenting
 Plug 'tpope/vim-commentary'
+" Hoon lang
+Plug 'urbit/hoon.vim'
 
 call plug#end()
 
@@ -191,13 +186,6 @@ set list   "Makes whitespace chars visible
 " }}}
 
 
-" == Tabular == {{{2
-" :Tabularize /,[/r1c1l0]   Aligns words separated by comma(,) in selected
-"                           lines. l - left alignment, r - right, c - center.
-"                           Number specifies how many spaces to insert.
-" }}}
-
-
 " == Vim markdown == {{{2
 let g:vim_markdown_folding_disabled=1 " Markdown
 " }}}
@@ -205,14 +193,6 @@ let g:vim_markdown_folding_disabled=1 " Markdown
 
 " == Vim airline == {{{2
 " Integrates automatically
-" }}}
-
-
-" == Vim surround == {{{2
-" Given: "Hello world"
-"   Press cs"'   -> 'Hello world'
-"   Press cs"<q> -> <q>Hello world</q>
-"   Press ds"    -> Hello world
 " }}}
 
 
@@ -273,7 +253,7 @@ endif
 " }}}
 
 
-" == Nginx.cong == {{{2
+" == Nginx.conf == {{{2
 " :setfiletype nginx   To enable
 " }}}
 
@@ -285,48 +265,6 @@ map <C-n> :NERDTreeToggle<CR>  " toggle NERDTree
 " Do not override vim tmux navigator mappings
 let g:NERDTreeMapJumpNextSibling = '<Nop>'
 let g:NERDTreeMapJumpPrevSibling = '<Nop>'
-" }}}
-
-
-" == NERDCommenter == {{{2
-" <leader>cc   Comment out current line or selected in visual mode
-" <leader>ci   Toggle the comment state of the selected line(s)
-" <leader>c$   Comments current line till the end of line
-" <leader>cA   The same as <leader>c$ , but ends in insert mode
-" <leader>cu   Uncomment the selected line(s)
-let NERDSpaceDelims=1 " Leave a space after the comment character
-" }}}
-
-
-" == Syntastic == {{{2
-" :lnext  Jump to next error
-" :lprev  Jump to prev error
-" :Errors  Show list of errors
-" :SyntasticToggleMode  Toggle between active and passive modes
-" :SyntasticCheck
-" :SyntasticInfo
-"
-" Enable syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 2
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-let g:syntastic_cursor_column = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_auto_jump = 0
-let g:syntastic_enable_balloons = 0
-let g:syntastic_aggregate_errors = 1
-
-let g:syntastic_javascript_checkers = ['eslint']
-
-" https://github.com/alecthomas/gometalinter
-" To refresh dependencies: `gometalinter --update --install --force`
-let g:syntastic_go_checkers = ['gometalinter']
-let g:syntastic_go_gometalinter_args = '--fast --vendor -D gotype'
 " }}}
 
 
@@ -343,32 +281,12 @@ let g:rustfmt_autosave = 1  " Auto format rust code
 " }}}
 
 
-" == Deoplete-go == {{{2
-" Align second column
-if has('nvim')
-  let g:deoplete#sources#go#align_class = 1
-endif
-" }}}
-
-
 " == Echodoc == {{{2
 set cmdheight=2
 set noshowmode
 let g:echodoc#enable_at_startup = 1
 " Disable preview window
 set completeopt-=preview
-" }}}
-
-
-" == Haskell ghc mod == {{{2
-" Insert signature of selected expression
-map <silent> tw :GhcModTypeInsert<CR>
-" Insert missing function implemenations
-map <silent> ts :GhcModSplitFunCase<CR>
-" Query expression type (multiple times to expand)
-map <silent> tq :GhcModType<CR>
-" Clear selection
-map <silent> te :GhcModTypeClear<CR>
 " }}}
 
 
@@ -388,7 +306,6 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor --nogroup --hidden
       \ -g ""'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules)|(\.(git))$'
 " }}}
-
 
 
 " == BufSurf == {{{2
@@ -417,7 +334,8 @@ let g:ctrlsf_indent = 2 " Spaces between line number and line content
 
 
 " == Hybrid theme == {{{2
-colorscheme hybrid
+"colorscheme hybrid
+colorscheme Tomorrow-Night-Eighties
 let g:hybrid_custom_term_colors = 1
 " }}}
 
@@ -432,6 +350,20 @@ let g:neomake_list_height = 2
 
 " == FastFold == {{{2
 let g:fastfold_savehook = 0 " Don't calculate folds on buffer save
+" }}}
+
+
+" == LanguageClient == {{{2
+set hidden  " Required for operations modifying multiple buffers like rename.
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls']
+    \ }
+
+let g:LanguageClient_autoStart = 1  " Automatically start language servers.
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 " }}}
 
 " }}}

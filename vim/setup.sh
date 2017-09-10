@@ -102,9 +102,34 @@ neovim_specific() {
   nvim +UpdateRemotePlugins +qall
 }
 
+# Install Tomorrow theme if needed
+install_theme() {
+  local colordir=$HOME/.vim/colors
+  local tmpdir=/tmp
+
+  if [[ -d $colordir ]]; then
+    local themes=`ls -l $colordir | grep -e 'Tomorrow.*\.vim$' | wc -l`
+
+    if [[ $themes -gt "0" ]]; then
+      return
+    fi
+  fi
+
+  echo "Installing Tomorrow-Night theme..."
+  local themedir="$tmpdir/tomorrow"
+  git clone https://github.com/chriskempson/tomorrow-theme.git $themedir
+
+  # Copy vim theme colors
+  cp -R $themedir/vim/* $HOME/.vim/
+
+  echo "Tomorrow theme location:"
+  echo "  $themedir"
+}
+
 check_requirements
 copy_vimrc
 install_vim_plug
+install_theme
 install_plugins
 neovim_specific
 
