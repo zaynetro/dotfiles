@@ -115,8 +115,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 " Markdown support
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-" Status/tabline
-Plug 'bling/vim-airline'
+" Light status line
+Plug 'itchyny/lightline.vim'
 
 " Git gutter
 Plug 'airblade/vim-gitgutter'
@@ -191,8 +191,10 @@ let g:vim_markdown_folding_disabled=1 " Markdown
 " }}}
 
 
-" == Vim airline == {{{2
-" Integrates automatically
+" == Lightline == {{{2
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ }
 " }}}
 
 
