@@ -194,7 +194,13 @@ let g:vim_markdown_folding_disabled=1 " Markdown
 " == Lightline == {{{2
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
+      \ 'component_function': {
+      \   'filename': 'LightLineFilename'
       \ }
+      \ }
+function! LightLineFilename()
+  return expand('%')
+endfunction
 " }}}
 
 
