@@ -286,6 +286,7 @@ let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 
 " == Rust lang == {{{2
 let g:rustfmt_autosave = 1  " Auto format rust code
+let g:rustfmt_command = "cargo fmt -- "
 " }}}
 
 
