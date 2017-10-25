@@ -46,8 +46,6 @@ set softtabstop=2     " Number of spaces in tab when editing
 set shiftwidth=2      " Number of columns to use for >< commands
 filetype indent on    " Load filetype specific indent files
 
-autocmd Filetype haskell setlocal ts=4 sts=4 sw=4 expandtab
-
 " }}}
 
 
@@ -113,47 +111,28 @@ call plug#begin('~/.vim/plugged')
 
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
-" Markdown support
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Polyglot (languages support)
+Plug 'sheerun/vim-polyglot'
 " Light status line
 Plug 'itchyny/lightline.vim'
-
 " Git gutter
 Plug 'airblade/vim-gitgutter'
-" Improved JavaScript indentation and syntax
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-" React JSX support
-Plug 'mxw/vim-jsx'
-" Go development
-Plug 'fatih/vim-go', { 'for': 'go' }
 " Autocompletion
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
 endif
 
-" Highlights nginx configuration
-Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
 " Tree explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Show git status in NERDTree
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
-
 " Navigate between vim and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
-" Robot framework syntax
-Plug 'mfukar/robotframework-vim', { 'for': 'robot' }
-" Rust lang support
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Toml support
-Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 " Display docs
 Plug 'Shougo/echodoc.vim'
-" Haskell syntax
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-
 " Finder
 Plug 'ctrlpvim/ctrlp.vim'
 " Surf through buffers historically
@@ -186,38 +165,16 @@ set list   "Makes whitespace chars visible
 " }}}
 
 
-" == Vim markdown == {{{2
-let g:vim_markdown_folding_disabled=1 " Markdown
-" }}}
+" == Vim polyglot == {{{2
+" If some file is not highlighed try :setfiletype nginx  To enable
 
+" Markdown
+let g:vim_markdown_folding_disabled=1
 
-" == Lightline == {{{2
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component_function': {
-      \   'filename': 'LightLineFilename'
-      \ }
-      \ }
-function! LightLineFilename()
-  return expand('%')
-endfunction
-" }}}
+" JS
+let g:javascript_enable_domhtmlcss = 1 " Highligh html/css inside JS
 
-
-" == Git gutter == {{{2
-" Disable realtime check:
-"   let g:gitgutter_realtime = 0
-"   let g:gitgutter_eager = 0
-" }}}
-
-
-" == Vim JavaScript == {{{2
-" Highligh html/css inside JS
-let g:javascript_enable_domhtmlcss = 1
-" }}}
-
-
-" == Vim Go == {{{2
+" Go
 " :Gopath [path]  Override gopath
 " :GoLink
 " :GoDoc
@@ -243,6 +200,30 @@ let g:go_fmt_command = "goimports"
 " Don't collide with Syntastic
 let g:go_fmt_fail_silently = 1
 let g:go_list_type = "quickfix"
+
+" Rust
+let g:rustfmt_autosave = 1  " Auto format rust code
+let g:rustfmt_command = "cargo fmt -- "
+" }}}
+
+
+" == Lightline == {{{2
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component_function': {
+      \   'filename': 'LightLineFilename'
+      \ }
+      \ }
+function! LightLineFilename()
+  return expand('%')
+endfunction
+" }}}
+
+
+" == Git gutter == {{{2
+" Disable realtime check:
+"   let g:gitgutter_realtime = 0
+"   let g:gitgutter_eager = 0
 " }}}
 
 
@@ -261,11 +242,6 @@ endif
 " }}}
 
 
-" == Nginx.conf == {{{2
-" :setfiletype nginx   To enable
-" }}}
-
-
 " == NERDTree == {{{2
 " Type ? to see instant help
 let NERDTreeShowHidden = 0
@@ -281,12 +257,6 @@ let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 " :Goyo [Width][XOffset][x[Height][YOffset]]
 "   Ex: :Goyo 50x85% or :Goyo 50%+25%x50%-25%
 " :Goyo!  To disable
-" }}}
-
-
-" == Rust lang == {{{2
-let g:rustfmt_autosave = 1  " Auto format rust code
-let g:rustfmt_command = "cargo fmt -- "
 " }}}
 
 
