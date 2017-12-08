@@ -147,7 +147,9 @@ Plug 'neomake/neomake'
 " Calculate folding only when folds are used
 Plug 'Konfekt/FastFold'
 " Language server plugin
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+endif
 " Commenting
 Plug 'tpope/vim-commentary'
 " Hoon lang
