@@ -338,7 +338,8 @@ let g:fastfold_savehook = 0 " Don't calculate folds on buffer save
 set hidden  " Required for operations modifying multiple buffers like rename.
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls']
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'typescript': ['javascript-typescript-stdio'],
     \ }
 
 let g:LanguageClient_autoStart = 1  " Automatically start language servers.
