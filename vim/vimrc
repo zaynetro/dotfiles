@@ -148,7 +148,10 @@ Plug 'neomake/neomake'
 Plug 'Konfekt/FastFold'
 " Language server plugin
 if has('nvim')
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 endif
 " Commenting
 Plug 'tpope/vim-commentary'
@@ -340,6 +343,7 @@ set hidden  " Required for operations modifying multiple buffers like rename.
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
     \ }
 
 let g:LanguageClient_autoStart = 1  " Automatically start language servers.
