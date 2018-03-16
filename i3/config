@@ -224,3 +224,6 @@ bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 # Move focused workspace to monitor (bracketleft = [)
 bindsym $mod+Shift+bracketleft move workspace to output up
 bindsym $mod+Shift+bracketright move workspace to output down
+
+exec --no-startup-id setxkbmap -layout us,ru
+exec --no-startup-id setxkbmap -option 'grp:ctrl_alt_toggle'
