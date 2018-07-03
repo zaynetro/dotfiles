@@ -207,8 +207,9 @@ let g:go_fmt_fail_silently = 1
 let g:go_list_type = "quickfix"
 
 " Rust
-let g:rustfmt_autosave = 1  " Auto format rust code
-let g:rustfmt_command = "cargo fmt -- "
+" Doesn't work properly. Migrating to language server formatting.
+let g:rustfmt_autosave = 0  " Auto format rust code
+" let g:rustfmt_command = "cargo fmt"
 " }}}
 
 
@@ -346,10 +347,9 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ }
 
-let g:LanguageClient_autoStart = 1  " Automatically start language servers.
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 " }}}
 
 " }}}
