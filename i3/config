@@ -226,4 +226,4 @@ bindsym $mod+Shift+bracketleft move workspace to output up
 bindsym $mod+Shift+bracketright move workspace to output down
 
 exec --no-startup-id setxkbmap -layout us,ru
-exec --no-startup-id setxkbmap -option 'grp:ctrl_alt_toggle'
+exec --no-startup-id setxkbmap -option 'grp:alt_shift_toggle'
