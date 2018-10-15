@@ -130,7 +130,10 @@ check_requirements
 copy_vimrc
 install_vim_plug
 install_theme
-install_plugins
+if [[ "$1" != "quick" ]]; then
+  echo "Installing plugins: $1"
+  install_plugins
+fi
 neovim_specific
 
 echo "Vim was set up"

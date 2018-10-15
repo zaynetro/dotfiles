@@ -12,7 +12,6 @@ let did_install_syntax_menu = 1
 set modelines=1       " Enable file specific overrides
 "set nocompatible     " Use Vim settings, rather than Vi (not working in neovim)
 set mouse=a           " Enable mouse in all modes
-set background=dark
 set number            " Show line numbers
 set relativenumber    " Show relative line numbers
 set cursorline        " Highlight current line
@@ -23,6 +22,7 @@ set ignorecase        " Case-insensitive search
 set hlsearch          " Highlight search results
 set showbreak=⇇       " Char to show on the wrapped lines
 set showcmd           " Show typed command
+set termguicolors     " Use true colors
 
 " }}}
 
@@ -74,6 +74,7 @@ set foldlevelstart=99
 " Fix <C-h> in neovim and tmux
 " https://github.com/neovim/neovim/issues/2048
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
+" TODO: we might not need this anymore as the issue is closed
 if has('nvim')
   nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 endif
@@ -119,13 +120,15 @@ Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 " Autocompletion
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
 " Tree explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Show git status in NERDTree
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+" Project drawer
+Plug 'tpope/vim-vinegar'
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 " Navigate between vim and tmux panes
@@ -139,8 +142,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ton/vim-bufsurf'
 " Search in files
 Plug 'dyng/ctrlsf.vim'
-" Hybrid color theme
-Plug 'w0ng/vim-hybrid'
+" Papercolor theme
+Plug 'NLKNguyen/papercolor-theme'
 
 " Neomake syntastic replacement for neovim
 Plug 'neomake/neomake'
@@ -155,8 +158,6 @@ if has('nvim')
 endif
 " Commenting
 Plug 'tpope/vim-commentary'
-" Hoon lang
-Plug 'urbit/hoon.vim'
 
 call plug#end()
 
@@ -214,12 +215,13 @@ let g:rustfmt_autosave = 0  " Auto format rust code
 
 
 " == Lightline == {{{2
+" Set colorscheme to 'PaperColor' for light theme
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component_function': {
-      \   'filename': 'LightLineFilename'
-      \ }
-      \ }
+  \   'colorscheme': 'Tomorrow_Night_Eighties',
+  \   'component_function': {
+  \     'filename': 'LightLineFilename'
+  \   }
+  \ }
 function! LightLineFilename()
   return expand('%')
 endfunction
@@ -318,13 +320,6 @@ let g:ctrlsf_indent = 2 " Spaces between line number and line content
 " }}}
 
 
-" == Hybrid theme == {{{2
-"colorscheme hybrid
-colorscheme Tomorrow-Night-Eighties
-let g:hybrid_custom_term_colors = 1
-" }}}
-
-
 " == Neomake == {{{2
 let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd! BufWritePost * Neomake
@@ -353,5 +348,21 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 " }}}
 
 " }}}
+
+
+" == Theme == {{{2
+function! ToggleDark()
+  set background=dark
+  colorscheme Tomorrow-Night-Eighties
+endfunction
+
+function! ToggleLight()
+  set background=light
+  colorscheme PaperColor
+endfunction
+
+call ToggleDark()
+" }}}
+
 
 " vim:foldmethod=marker:foldlevel=0
