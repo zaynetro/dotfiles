@@ -35,12 +35,21 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(rust
      shell
+     go
+     sql
+     javascript
+     react
+     typescript
+     html
+     yaml
+     docker
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
+     ;; ivy
      auto-completion
      ;; better-defaults
      emacs-lisp
@@ -52,8 +61,8 @@ This function should only modify configuration layer settings."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      spell-checking
-     ;; syntax-checking
-     ;; version-control
+     syntax-checking
+     version-control
      )
 
    ;; List of additional packages that will be installed without being
@@ -250,7 +259,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
 
    ;; If non-nil, auto-generate layout name when creating new layouts. Only has
    ;; effect when using the "jump to layout by number" commands. (default nil)
@@ -299,7 +308,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -459,21 +468,46 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (global-visual-line-mode t)
 
-  ;; Orgmode configuration
-  (setq org-directory "~/Sync/org/")
-  ;; (setq org-default-notes-file (concat org-directory "/notes.org"))
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Sync/org/tasks.org" "Tasks")
-           "* TODO %?\n  %T\n  %i\n  %a")
-          ("j" "Journal" entry (file+olp+datetree "~/Sync/org/journal.org")
-           "* %?\n  %U\n  %i\n  %a")
-          ("n" "Note" entry (file+headline "~/Sync/org/notes.org" "Notes")
-           "* %?\n  %U\n  %i")))
-  (setq org-agenda-files '("~/Sync/org/"))
-  ;; Enable word wrapping in orgmode
-  ;; See alternative: https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/
-  ;; This is no longer necessary as long as global-visual-line-mode is on.
-  ;; (setq org-startup-truncated nil)
+  (with-eval-after-load 'org
+    ;; Orgmode configuration
+    (setq org-directory "~/Sync/org/")
+    ;; (setq org-default-notes-file (concat org-directory "/notes.org"))
+    ;; Template expansions:
+    ;; %?          After completing the template, position cursor here.
+    ;; %t          Timestamp, date only.
+    ;; %T          Timestamp, with date and time.
+    ;; %u, %U      Like the above, but inactive timestamps.
+    ;; %i          Initial content, the region when capture is called while the region is active.
+    ;; %a          Annotation, normally the link created with org-store-link.
+
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline "~/Sync/org/tasks.org" "Tasks")
+             "* TODO %?\n  %T\n  %i\n  %a")
+            ("j" "Journal" entry (file+olp+datetree "~/Sync/org/journal.org")
+             "* %?\n  %U\n  %i")
+            ("w" "Work log" entry (file+olp+datetree "~/Sync/org/work-log.org")
+             "* %?\t:work:bpg:\n  %u\n  %i")
+            ("n" "Note" entry (file+headline "~/Sync/org/notes.org" "Notes")
+             "* %?\n  %U\n  %i")))
+    (setq org-agenda-files '("~/Sync/org/"))
+    ;; Enable word wrapping in orgmode
+    ;; See alternative: https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/
+    ;; This is no longer necessary as long as global-visual-line-mode is on.
+    ;; (setq org-startup-truncated nil)
+    )
+
+  ;; Go
+  (setq go-format-before-save t)
+  (setq gofmt-command "goimports") ;; Remove this if you want to format the file as well.
+
+  ;; Do not copy the selected text when pasting over it.
+  ;; From: file:~/.emacs.d/doc/FAQ.org
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
