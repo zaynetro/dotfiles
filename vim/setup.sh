@@ -8,21 +8,15 @@ vimrc_changed=`diff -q vimrc $HOME/.vimrc`
 
 # Check if user has vim and git
 check_requirements() {
-  local vimloc=`which vim`
+  local vimloc=`which nvim`
   if [[ ! -x $vimloc ]]; then
-    echo "vim is required"
+    echo "nvim is required"
     exit 1
   fi
 
   local gitloc=`which git`
   if [[ ! -x $gitloc ]]; then
     echo "git is required"
-    exit 1
-  fi
-
-  local curl_loc=`which pip3`
-  if [[ ! -x $curl_loc ]]; then
-    echo "curl is required"
     exit 1
   fi
 }

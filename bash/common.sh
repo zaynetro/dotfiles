@@ -23,7 +23,7 @@ if [[ -d $HOME/.local ]]; then
 fi
 
 # Default editor
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Show colors in the terminal
 force_color_prompt=yes
