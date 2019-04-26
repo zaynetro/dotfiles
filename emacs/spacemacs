@@ -33,7 +33,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(;; rust
      shell
      go
      sql
@@ -51,6 +51,9 @@ This function should only modify configuration layer settings."
      helm
      ;; ivy
      auto-completion
+     lsp
+     (rust :variables
+           rust-backend 'lsp)
      ;; better-defaults
      emacs-lisp
      git
