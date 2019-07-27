@@ -14,6 +14,7 @@ Commands:
     u[pdate] <package>    Update package
     u[pdate] self         Update nix-env itself
     u[pdate]              Update all installed packages
+    r[emove] <package>    Remove/Uninstall package
     l[ist]                List installed packages
     s[earch] <query>      Search available packages
     c[lean]               Clean/Delete old generations
@@ -67,6 +68,10 @@ case "$command" in
                 fi
                 ;;
         esac
+        ;;
+    "r"|"remove") # Remove/Uninstall package
+        package=$2
+        nix-env --uninstall
         ;;
     "l"|"list") # List installed packages
         nix-env -q
