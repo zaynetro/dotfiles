@@ -1,11 +1,5 @@
 # Common bash environment
 
-# nvm
-if [[ -d $HOME/.nvm ]]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-fi
-
 # Go PATH
 if [[ -d $HOME/Code/go ]]; then
   export GOPATH="$HOME/Code/go"
@@ -15,11 +9,6 @@ fi
 # Cargo
 if [[ -d $HOME/.cargo ]]; then
   export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-# Stack
-if [[ -d $HOME/.local ]]; then
-  export PATH="$PATH:$HOME/.local/bin"
 fi
 
 # Default editor
