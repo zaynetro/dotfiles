@@ -14,13 +14,11 @@ git_aware_dir=$bash_dir/git-aware-prompt
 if [[ ! -d $git_aware_dir ]]; then
   # Clone it if not exists
   echo "Cloning git aware prompt to $bash_dir..."
-  (cd $bash_dir && \
-    git clone git://github.com/jimeh/git-aware-prompt.git )
+  (cd $bash_dir && git clone https://github.com/jimeh/git-aware-prompt.git )
 else
   # Update it otherwise
   echo "Pulling git aware prompt changes..."
-  (cd $git_aware_dir && \
-    git pull origin master )
+  (cd $git_aware_dir && git pull origin master )
 fi
 
 # Copy .bash_profile
