@@ -42,11 +42,13 @@ Examples:
 
     nix-env -f '<nixpkgs>' -qaPA nodePackages       Search node packages
     nix-env -f '<nixpkgs>' -iA nodePackages.tern    Install node package
+    nix-env -f '<nixpkgs>' -iA aspellDicts.en       Install aspell dictionary
 "
 
 debug=
 
 if [[ "$1" == "--dry" ]]; then
+    echo "Running in dry mode... (Commands are not executed)"
     debug=echo
     shift
 fi
