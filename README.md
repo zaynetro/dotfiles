@@ -14,6 +14,8 @@ nix-env -i vim
 nix-env -i ripgrep
 nix-env -i tree
 nix-env -i tig
+nix-env -i nodejs
+nix-env -i rustup
 nix-env -i aspell
 nix-env -f '<nixpkgs>' -iA aspellDicts.en
 ```
