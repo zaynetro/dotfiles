@@ -42,16 +42,24 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      emacs-lisp
      git
-     ;; go
+     (go :variables
+         go-backend 'lsp
+         ;; go-use-golangci-lint t
+         go-format-before-save t
+         gofmt-command "goimports"
+         )
      ;; helm
      html
      ivy
      (javascript :variables
-                 javascript-backend 'lsp)
+                 javascript-backend 'lsp
+                 ;; javascript-lsp-linter nil
+                 )
      lsp
      markdown
      ;; multiple-cursors
      org
+     python
      react
      (rust :variables
            rust-backend 'lsp)
@@ -62,8 +70,10 @@ This function should only modify configuration layer settings."
      sql
      syntax-checking
      treemacs
-     ;; (typescript :variables
-     ;;             typescript-backend 'lsp)
+     (typescript :variables
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil
+                 )
      version-control
      yaml
      )
@@ -507,10 +517,6 @@ before packages are loaded."
     ;; This is no longer necessary as long as global-visual-line-mode is on.
     ;; (setq org-startup-truncated nil)
     )
-
-  ;; Go
-  ;; (setq go-format-before-save t)
-  ;; (setq gofmt-command "goimports") ;; Remove this if you want to format the file as well.
 
   ;; Do not copy the selected text when pasting over it.
   ;; From: file:~/.emacs.d/doc/FAQ.org
