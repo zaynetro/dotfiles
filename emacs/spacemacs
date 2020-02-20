@@ -65,6 +65,7 @@ This function should only modify configuration layer settings."
            rust-backend 'lsp)
      (shell :variables
             shell-default-shell 'eshell
+            ;; shell-default-shell 'inferior
             shell-default-width 40
             shell-default-position 'right
             close-window-with-terminal t
@@ -529,6 +530,9 @@ before packages are loaded."
       (call-interactively 'evil-paste-after)))
 
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
+  ;; Case insensitive completion in eshell
+  (setq eshell-cmpl-ignore-case t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
