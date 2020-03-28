@@ -11,6 +11,11 @@ if [[ -d $HOME/.cargo ]]; then
   export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
+# Nix-env
+if [ -e /home/zaynetro/.nix-profile/etc/profile.d/nix.sh ]; then
+    . /home/zaynetro/.nix-profile/etc/profile.d/nix.sh;
+fi # added by Nix installer
+
 # Default editor
 export EDITOR='nvim'
 
