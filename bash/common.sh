@@ -1,9 +1,9 @@
 # Common bash environment
 
 # Go PATH
-if [[ -d $HOME/Code/go ]]; then
-  export GOPATH="$HOME/Code/go"
-  export PATH=$PATH:$GOPATH/bin
+if [[ -d $HOME/go ]]; then
+    export GOPATH="$HOME/go"
+    export PATH=$PATH:$GOPATH/bin
 fi
 
 # Cargo
