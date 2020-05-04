@@ -40,6 +40,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
+     docker
      emacs-lisp
      git
      (go :variables
@@ -51,12 +52,17 @@ This function should only modify configuration layer settings."
      ;; helm
      html
      ivy
+     (java :variables
+           java-backend 'lsp
+           )
      (javascript :variables
                  javascript-backend 'lsp
                  ;; javascript-lsp-linter nil
                  )
-     lsp
+     kotlin
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      markdown
+     nginx
      ;; multiple-cursors
      org
      python
@@ -73,10 +79,11 @@ This function should only modify configuration layer settings."
      spell-checking
      sql
      syntax-checking
+     terraform
      treemacs
      (typescript :variables
                  typescript-backend 'lsp
-                 typescript-lsp-linter nil
+                 ;; typescript-lsp-linter nil
                  )
      version-control
      yaml
@@ -89,7 +96,11 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      (magit-delta :location (recipe
+                                                              :fetcher github
+                                                              :repo "dandavison/magit-delta"))
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -512,7 +523,7 @@ before packages are loaded."
             ("j" "Journal" entry (file+olp+datetree "~/Sync/org/journal.org")
              "* %?\n  %U\n  %i")
             ("w" "Work log" entry (file+olp+datetree "~/Sync/org/work-log.org")
-             "* %?\t:work:bpg:\n  %u\n  %i")
+             "* %?\t:work:lekane:\n  %u\n  %i")
             ("n" "Note" entry (file+headline "~/Sync/org/notes.org" "Notes")
              "* %?\n  %U\n  %i")))
     (setq org-agenda-files '("~/Sync/org/"))
@@ -521,6 +532,7 @@ before packages are loaded."
     ;; This is no longer necessary as long as global-visual-line-mode is on.
     ;; (setq org-startup-truncated nil)
     )
+
 
   ;; Do not copy the selected text when pasting over it.
   ;; From: file:~/.emacs.d/doc/FAQ.org
@@ -531,8 +543,25 @@ before packages are loaded."
 
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
+
   ;; Case insensitive completion in eshell
   (setq eshell-cmpl-ignore-case t)
+
+
+  ;; Trigger Hydra when program hits a breakpoint
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+
+  (define-key evil-normal-state-map (kbd "M-i") 'evil-jump-forward)
+  (define-key evil-normal-state-map (kbd "M-o") 'evil-jump-backward)
+
+
+  ;; Magit delta
+  (setq magit-delta-default-light-theme "Solarized (light)")
+  (setq magit-delta-delta-args
+    `("--max-line-distance" "0.6"
+      "--color-only"))
+  (magit-delta-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
