@@ -36,13 +36,13 @@
 (after! org-capture
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Sync/org/tasks.org" "Tasks")
-           "* TODO %?\n  %T\n  %i\n  %a")
+           "* TODO %?\n%T\n%i\n%a")
           ("j" "Journal" entry (file+olp+datetree "~/Sync/org/journal.org")
-           "* %?\n  %U\n  %i")
+           "* %?\n%U\n%i")
           ("w" "Work log" entry (file+olp+datetree "~/Sync/org/work-log.org")
-           "* %?\t:work:lekane:\n  %u\n  %i")
+           "* %?\t:work:lekane:\n%u\n%i")
           ("n" "Note" entry (file+headline "~/Sync/org/notes.org" "Notes")
-           "* %?\n  %U\n  %i"))))
+           "* %?\n%U\n%i"))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -97,3 +97,9 @@
 
 (after! magit
   (setq git-commit-summary-max-length 70))
+
+(after! javascript
+  (setq js-indent-level 2))
+
+(after! typescript
+  (setq typescript-indent-level 2))
