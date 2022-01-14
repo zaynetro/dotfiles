@@ -16,7 +16,7 @@ fi
 # Link personal config to fish functions
 mkdir -p $fish_dir/functions
 config_fun_dest=$fish_dir/functions/fish_personal_config.fish
-if [[ ! -f $config_fun_dest ]]; then
+if [[ ! -L $config_fun_dest ]]; then
   echo "Linking to $config_fun_dest"
   ln -s $(pwd)/fish_personal_config.fish $config_fun_dest
 fi
@@ -31,7 +31,7 @@ fi
 fenv_dir=$fish_dir/plugin-foreign-env
 if [[ ! -d $fenv_dir ]]; then
   echo "Cloning fenv..."
-  git clone https://github.com/oh-my-fish/plugin-foreign-env.git
+  git clone --depth 1 https://github.com/oh-my-fish/plugin-foreign-env.git $fenv_dir
 fi
 
-echo "Done."
+echo "Fish setup Done."

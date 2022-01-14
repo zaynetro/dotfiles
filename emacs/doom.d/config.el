@@ -79,6 +79,18 @@
 (after! lsp-mode
   (lsp-ui-mode))
 
+(setq gc-cons-threshold 100000000)
+
+(after! lsp-java
+  ;; Set Java formatting
+  ;; (setq lsp-java-format-settings-url "/../java_formatting.xml")
+  ;; LS requires Java 11
+  ;; (setq lsp-java-java-path "/usr/lib/jvm/java-11-openjdk/bin/java")
+
+  (setq lsp-java-vmargs '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx2G" "-Xms100m"))
+  (setq lsp-java-completion-max-results 10)
+  (setq lsp-java-autobuild-enabled nil))
+
 (after! lsp-ui
   (setq lsp-ui-doc-max-height 15
         lsp-ui-doc-max-width 80
@@ -98,8 +110,5 @@
 (after! magit
   (setq git-commit-summary-max-length 70))
 
-(after! javascript
-  (setq js-indent-level 2))
-
-(after! typescript
-  (setq typescript-indent-level 2))
+(setq js-indent-level 2)
+(setq typescript-indent-level 2)

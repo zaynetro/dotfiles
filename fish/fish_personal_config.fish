@@ -14,6 +14,11 @@ function fish_personal_config -d "Configure Fish"
         set PATH $PATH $HOME/go/bin
     end
 
+    # Python binaries
+    if test -e $HOME/.local/bin
+        set PATH $PATH $HOME/.local/bin
+    end
+
     # User-friendly nix
     function nix-rz
         $HOME/.bash/nix-rz.sh $argv
