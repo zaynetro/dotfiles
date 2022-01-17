@@ -15,5 +15,9 @@ rpm-ostree install --idempotent \
   podman-compose \
   podman-docker \
   ripgrep \
+  rust \
+  cargo \
+  rust-src \
   sqlite \
+  syncthing \
   tig

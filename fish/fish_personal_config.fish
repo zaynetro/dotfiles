@@ -6,17 +6,17 @@ function fish_personal_config -d "Configure Fish"
 
     # Cargo
     if test -e $HOME/.cargo
-        set PATH $PATH $HOME/.cargo/bin
+        fish_add_path ~/.cargo/bin
     end
 
     # Go
     if test -e $HOME/go/bin
-        set PATH $PATH $HOME/go/bin
+        fish_add_path ~/go/bin
     end
 
     # Python binaries
     if test -e $HOME/.local/bin
-        set PATH $PATH $HOME/.local/bin
+        fish_add_path ~/.local/bin
     end
 
     # User-friendly nix

@@ -4,20 +4,17 @@ set -e
 
 echo "Installing Flatpak applications..."
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub org.chromium.Chromium
-# TODO: how to repace firefox?
+flatpak install -y flathub org.chromium.Chromium
 rpm-ostree override remove firefox
-flatpak install flathub org.mozilla.firefox
+flatpak install -y flathub org.mozilla.firefox
 
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
-flatpak install flathub org.keepassxc.KeePassXC
-flatpak install flathub io.github.seadve.Kooha
-flatpak install flathub org.telegram.desktop
-# TODO: Syncthing GTK hasn't been updated in two years. Run syncthing directly https://src.fedoraproject.org/rpms/syncthing
-flatpak install flathub me.kozec.syncthingtk
-flatpak install flathub com.slack.Slack
-flatpak install flathub org.videolan.VLC
-flatpak install flathub com.spotify.Client
+flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
+flatpak install -y flathub org.keepassxc.KeePassXC
+flatpak install -y flathub io.github.seadve.Kooha
+flatpak install -y flathub org.telegram.desktop
+flatpak install -y flathub com.slack.Slack
+flatpak install -y flathub org.videolan.VLC
+flatpak install -y flathub com.spotify.Client
 
 echo "Configuring Gnome..."
 # Use ctrl-tab to cycle Gnome tabs. Ref: https://superuser.com/a/1538005
@@ -26,6 +23,9 @@ gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/k
 
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 gsettings set org.gnome.desktop.interface clock-show-weekday true
+gsettings set org.gnome.desktop.interface enable-hot-corners false
+
+flatpak install -y flathub com.mattjakeman.ExtensionManager
 
 echo "Configuring Doom Emacs..."
 if [[ ! -L ~/.doom.d ]]; then
@@ -57,8 +57,20 @@ toolbox run sudo dnf -y install \
   rust \
   cargo \
   ripgrep \
-  fd-find
+  fd-find \
+  sqlite
+
 # Gnome Tweaks is for managing Startup applications
-# TODO: disable workspaces (set to Static and 1)
-# TODO: show week numbers in the calendar
+# TODO: disable workspaces (set to Static and 1) <- Find gsettings key for that
 toolbox run sudo dnf -y install gnome-tweaks
+
+echo "Configuring Syncthing..."
+systemctl --user enable --now syncthing.service
+# Web UI: http://localhost:8384/
+# From https://src.fedoraproject.org/rpms/syncthing
+#
+# The syncthing user session service will not automatically be restarted after package updates.
+# Instead, the user has to either restart syncthing from the web interface, log out and back in, or run the following commands manually:
+#
+# > systemctl --user daemon-reload
+# > systemctl --user restart syncthing.service

@@ -16,15 +16,7 @@ Bash scripts to help set up dev tools on new machine
 * `./setup-fedora.sh`
 * Use fish `sudo usermod --shell /usr/bin/fish <user>`
 * Gnome extension to show tray icons https://extensions.gnome.org/extension/615/appindicator-support/
-
-```sh
-# Download the ZIP https://extensions.gnome.org/extension/615/appindicator-support/
-# Unzip into a directory
-mkdir -p ~/.local/share/gnome-shell/extensions
-mv ~/Downloads/appindicator ~/.local/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com
-```
-
-
+    * Open "Extensions Manager" and install "AppIndicator and KStatusNotifierItem Support"
 
 
 ## Old setup

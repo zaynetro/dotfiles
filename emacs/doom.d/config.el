@@ -92,9 +92,10 @@
   (setq lsp-java-autobuild-enabled nil))
 
 (after! lsp-ui
+  ;; Consider using `+lookup/documentation' instead of lsp-ui-doc
   (setq lsp-ui-doc-max-height 15
         lsp-ui-doc-max-width 80
-        ;; Consider using `+lookup/documentation' instead
+        lsp-ui-doc-show-with-mouse t
         lsp-ui-doc-enable t))
 
 ;; Case insensitive completion in eshell
@@ -112,3 +113,28 @@
 
 (setq js-indent-level 2)
 (setq typescript-indent-level 2)
+
+;; From https://emacs-lsp.github.io/lsp-mode/page/main-features/
+(setq company-minimum-prefix-length 1
+      company-idle-delay 0.0) ;; default is 0.2
+
+;; Remember frame size of Emacs
+;; https://discord.com/channels/406534637242810369/406554085794381833/843557872755540008
+(when-let (dims (doom-store-get 'last-frame-size))
+  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+    (setq initial-frame-alist
+          (append initial-frame-alist
+                  `((left . ,left)
+                    (top . ,top)
+                    (width . ,width)
+                    (height . ,height)
+                    (fullscreen . ,fullscreen))))))
+
+(defun save-frame-dimensions ()
+  (doom-store-put 'last-frame-size
+                  (list (frame-position)
+                        (frame-width)
+                        (frame-height)
+                        (frame-parameter nil 'fullscreen))))
+
+(add-hook 'kill-emacs-hook #'save-frame-dimensions)
