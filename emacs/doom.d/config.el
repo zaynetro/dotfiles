@@ -76,8 +76,8 @@
         '(".projectile"
           ".git")))
 
-(after! lsp-mode
-  (lsp-ui-mode))
+;; (after! lsp-mode
+;;   (lsp-ui-mode))
 
 (setq gc-cons-threshold 100000000)
 
@@ -89,14 +89,15 @@
 
   (setq lsp-java-vmargs '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx2G" "-Xms100m"))
   (setq lsp-java-completion-max-results 10)
-  (setq lsp-java-autobuild-enabled nil))
+  ;; (setq lsp-java-autobuild-enabled nil)
+  )
 
-(after! lsp-ui
-  ;; Consider using `+lookup/documentation' instead of lsp-ui-doc
-  (setq lsp-ui-doc-max-height 15
-        lsp-ui-doc-max-width 80
-        lsp-ui-doc-show-with-mouse t
-        lsp-ui-doc-enable t))
+;; (after! lsp-ui
+;;   ;; Consider using `+lookup/documentation' instead of lsp-ui-doc
+;;   (setq lsp-ui-doc-max-height 15
+;;         lsp-ui-doc-max-width 80
+;;         lsp-ui-doc-show-with-mouse t
+;;         lsp-ui-doc-enable t))
 
 ;; Case insensitive completion in eshell
 (setq eshell-cmpl-ignore-case t)
@@ -116,7 +117,7 @@
 
 ;; From https://emacs-lsp.github.io/lsp-mode/page/main-features/
 (setq company-minimum-prefix-length 1
-      company-idle-delay 0.0) ;; default is 0.2
+      company-idle-delay 0.2)
 
 ;; Remember frame size of Emacs
 ;; https://discord.com/channels/406534637242810369/406554085794381833/843557872755540008
@@ -138,3 +139,8 @@
                         (frame-parameter nil 'fullscreen))))
 
 (add-hook 'kill-emacs-hook #'save-frame-dimensions)
+
+;; Temporary workaround:
+;; - https://github.com/bbatsov/projectile/issues/1788
+;; - https://github.com/doomemacs/doomemacs/issues/6600
+(setq projectile-generic-command "fd . -0 --type f --color=never")

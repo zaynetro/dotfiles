@@ -19,6 +19,10 @@ function fish_personal_config -d "Configure Fish"
         fish_add_path ~/.local/bin
     end
 
+    if test -e $HOME/.pub-cache/bin
+        fish_add_path $HOME/.pub-cache/bin
+    end
+
     # User-friendly nix
     function nix-rz
         $HOME/.bash/nix-rz.sh $argv

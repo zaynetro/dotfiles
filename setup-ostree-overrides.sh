@@ -4,7 +4,6 @@ set -e
 
 echo "Installing global packages..."
 rpm-ostree install --idempotent \
-  neovim \
   emacs \
   aspell \
   aspell-en \
@@ -15,9 +14,4 @@ rpm-ostree install --idempotent \
   podman-compose \
   podman-docker \
   ripgrep \
-  rust \
-  cargo \
-  rust-src \
-  sqlite \
-  syncthing \
-  tig
+  syncthing

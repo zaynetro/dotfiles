@@ -7,6 +7,8 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak install -y flathub org.chromium.Chromium
 rpm-ostree override remove firefox
 flatpak install -y flathub org.mozilla.firefox
+# Run in Wayland session: https://old.reddit.com/r/LinuxCafe/comments/isdmmp/tip_use_firefox_flatpak_in_native_wayland_no/
+flatpak --user override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
 
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
 flatpak install -y flathub org.keepassxc.KeePassXC
@@ -15,6 +17,8 @@ flatpak install -y flathub org.telegram.desktop
 flatpak install -y flathub com.slack.Slack
 flatpak install -y flathub org.videolan.VLC
 flatpak install -y flathub com.spotify.Client
+# Manage Flatpak application permissions
+flatpak install -y flathub com.github.tchx84.Flatseal
 
 echo "Configuring Gnome..."
 # Use ctrl-tab to cycle Gnome tabs. Ref: https://superuser.com/a/1538005
@@ -58,7 +62,8 @@ toolbox run sudo dnf -y install \
   cargo \
   ripgrep \
   fd-find \
-  sqlite
+  sqlite \
+  pkg-config openssl-devel
 
 # Gnome Tweaks is for managing Startup applications
 # TODO: disable workspaces (set to Static and 1) <- Find gsettings key for that
