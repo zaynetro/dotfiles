@@ -1,38 +1,79 @@
-{ pkgs, ... }: {
-  home.username = "roman";
-  home.homeDirectory = "/var/home/roman";
-  home.stateVersion = "22.11";
+# Search for packages with https://search.nixos.org
+{ pkgs, pkgs-unstable, fenix, ... }: {
 
   home.packages = [
     # Editor
-    # See extra emacs config below
-    pkgs.emacsPgtk
+    pkgs.emacs29
     pkgs.fd
     pkgs.neovim
     pkgs.ripgrep
 
     # Needed for Rust to work...
     # https://github.com/mozilla/nixpkgs-mozilla/issues/82
-    pkgs.clang
+    # pkgs.clang
+    # Can't use rustup because it provides rust-analyzer symlink that conflicts with an actual rust-analyzer...
     # pkgs.rustup
+    # Use fenix.complete.withComponents for nightly components
+    # (fenix.complete.withComponents [
+    (fenix.stable.withComponents [
+      "cargo"
+      "clippy"
+      "rust-src"
+      "rustc"
+      "rustfmt"
+    ])
+    pkgs-unstable.rust-analyzer
 
     # For OpenSSL
-    pkgs.perl
-    pkgs.gnumake
+    # pkgs.perl
+    # pkgs.gnumake
 
     # Tools
-    pkgs.nixfmt
+    pkgs-unstable.deno
+    # pkgs-unstable.duckdb
     pkgs.protobuf
     pkgs.sqlite
     pkgs.tig
-    pkgs.zola
+    pkgs.tree
+    # pkgs-unstable.youtube-dl
+    pkgs.zstd
+    # pkgs.zola
+    pkgs-unstable.shadowsocks-rust
 
     # Node
     pkgs.nodePackages.typescript-language-server
+    pkgs.nodejs
+
+    # Elixir
+    # pkgs-unstable.erlang_26
+    # pkgs-unstable.elixir_1_15
+    # pkgs-unstable.elixir-ls
+
+    # Nats:
+    # pkgs.natscli
+    # pkgs-unstable.nats-server
+
+    # Cloud:
+    pkgs-unstable.flyctl
+
+    # Package is broken to build it I needed:
+    # > set NIXPKGS_ALLOW_BROKEN 1 <-- actually I think only config worked
+    # > nix run . switch -- --flake . --impure
+    # Didn't work still :/
+    # pkgs-unstable.nsc
+
+    # Go
+    # pkgs.go
+    # pkgs.gopls
+
+    # Python
+    pkgs-unstable.poetry
+    pkgs.python311
 
     # For Flutter
     # Linux: https://docs.flutter.dev/get-started/install/linux#additional-linux-requirements
-    # WIP: https://github.com/NixOS/nixpkgs/pull/201027
+    # WIP (linux): https://github.com/NixOS/nixpkgs/pull/201027
+    # WIP (darwin): https://github.com/NixOS/nixpkgs/pull/210067
     # pkgs.flutter
     # pkgs.clang
     # pkgs.cmake
@@ -43,16 +84,56 @@
 
   programs.home-manager.enable = true;
 
+  programs.kitty = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     userName = "Roman Zaynetdinov";
-    userEmail = "a@zaynetro.com";
+    userEmail = "roman@zaynetro.com";
   };
 
-  # TODO: configure fish
-  # https://nix-community.github.io/home-manager/options.html#opt-programs.fish.enable
+  programs.fish = {
+    enable = true;
 
-  # TODO: configure syncthing
+    shellInit = ''
+      # Single-user installation
+      # if test -e /Users/roman/.nix-profile/etc/profile.d/nix.fish;
+      #     . /Users/roman/.nix-profile/etc/profile.d/nix.fish;
+      # end
+
+      # Multi-user installation
+      fish_add_path /nix/var/nix/profiles/default/bin
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.fish;
+          . /nix/var/nix/profiles/default/etc/profile.d/nix.fish;
+      end
+
+      set -x EDITOR nvim
+
+      # Use Vi
+      fish_vi_key_bindings
+
+      # Rust/Cargo
+      fish_add_path ~/.cargo/bin
+
+      # Go
+      fish_add_path ~/go/bin
+
+      # Python
+      fish_add_path ~/.local/bin
+
+      # Dart/Flutter
+      fish_add_path $HOME/.pub-cache/bin
+      fish_add_path $HOME/Code/flutter/bin
+
+      # Add device specific overrides
+      if test -e ~/.config/fish/local.fish;
+          . ~/.config/fish/local.fish
+      end
+    '';
+  };
+
   # services.syncthing.enable = true;
 }
 

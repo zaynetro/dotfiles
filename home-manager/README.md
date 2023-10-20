@@ -13,6 +13,11 @@ experimental-features = nix-command flakes
 * Configure in `home.nix`.
 * Switch to new generation: `nix run . switch -- --flake .`
 
+## Updates
+
+* Update nixpkgs: `nix flake update`
+* Upgrade Nix: `sudo nix upgrade-nix`
+
 ## Options
 
 * Find available options: https://mipmip.github.io/home-manager-option-search/
@@ -24,6 +29,7 @@ experimental-features = nix-command flakes
 * Enable old generation: `/nix/store/3z8-home-manager-generation/activate`
 * Print help `nix run .` or `nix run . -- --help`
 * Clean up old files: `nix store gc`
+* Format `nix fmt .`
 
 
 ## References:
