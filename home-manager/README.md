@@ -1,6 +1,10 @@
 # Home configuration management with Nix
 
+Install Nix using <https://github.com/DeterminateSystems/nix-installer>
+
 ## Requirements
+
+> This is not needed if Nix is installed using nix-installer from DeterminateSystems
 
 Enable flakes in `~/.config/nix/nix.conf`:
   
@@ -20,8 +24,8 @@ experimental-features = nix-command flakes
 
 ## Options
 
-* Find available options: https://mipmip.github.io/home-manager-option-search/
-* Find available package: https://search.nixos.org/packages
+* Find available options: <https://mipmip.github.io/home-manager-option-search/>
+* Find available package: <https://search.nixos.org/packages>
 
 ## Utils
 
@@ -34,5 +38,5 @@ experimental-features = nix-command flakes
 
 ## References:
 
-- https://github.com/nix-community/home-manager
-- https://www.chrisportela.com/posts/home-manager-flake/
+- <https://github.com/nix-community/home-manager>
+- <https://www.chrisportela.com/posts/home-manager-flake/>
