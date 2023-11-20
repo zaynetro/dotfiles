@@ -15,7 +15,7 @@ experimental-features = nix-command flakes
 ## Configure
 
 * Configure in `home.nix`.
-* Switch to new generation: `nix run . switch -- --flake .`
+* Switch to new generation: `home-manager switch --flake ~/Code/dotfiles/hm`
 
 ## Updates
 
@@ -29,11 +29,14 @@ experimental-features = nix-command flakes
 
 ## Utils
 
-* List generations: `nix run . generations`
+> In case home-manager is not in the PATH. We can add  
+> `packages.${system}.default = home-manager.defaultPackage.${system};`  
+> And then run the flake directly with `nix run` 
+
+* List generations: `home-manager generations`
 * Enable old generation: `/nix/store/3z8-home-manager-generation/activate`
-* Print help `nix run .` or `nix run . -- --help`
 * Clean up old files: `nix store gc`
-* Format `nix fmt .`
+* Format `nix fmt`
 
 
 ## References:

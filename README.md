@@ -1,10 +1,36 @@
 # Dev setup
 
-Bash scripts to help set up dev tools on new machine
 
-* Generate SSH key `ssh-keygen -t rsa -b 4096 -C "<email>"`
-* (Not always required) Add SSH key to the agent `eval "$(ssh-agent -s)"` and `ssh-add ~/.ssh/id_rsa`
-* Add SSH pub key to github https://github.com/settings/keys
+## Mac setup
+
+- Install Nix using [nix-installer](https://github.com/DeterminateSystems/nix-installer)
+- Configure the system:
+
+```sh
+# Generate SSH key
+ssh-keygen -t ed25519 -C "<email>"
+
+# Add public key to GitHub
+cat .ssh/id_ed25519.pub
+
+# Clone this repo
+git clone git@github.com:zaynetro/dotfiles.git
+
+# Init Home Manager
+nix run home-manager/release-23.05 -- init ~/Code/dotfiles/hm
+# Activate hm configuration
+home-manager switch --flake ~/Code/dotfiles/hm
+```
+
+- Doom emacs:
+
+```
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom sync
+```
+
+- Make sure there is no `~/.emacs.d` directory. Because it will be picked first.
+
 
 ## Fedora Silverblue
 
@@ -18,6 +44,7 @@ Bash scripts to help set up dev tools on new machine
 * Gnome extension to show tray icons https://extensions.gnome.org/extension/615/appindicator-support/
     * Open "Extensions Manager" and install "AppIndicator and KStatusNotifierItem Support"
     
+
 ## Nix on Fedora Silverblue
 
 Ref: https://gist.github.com/queeup/1666bc0a5558464817494037d612f094
@@ -87,38 +114,6 @@ Ref: https://gist.github.com/queeup/1666bc0a5558464817494037d612f094
   ```
   experimental-features = nix-command flakes
   ```
-
-## Old setup
-
-* Install nix-env: https://nixos.org/nix/manual/#chap-installation
-* Install tools
-
-```
-nix-env -i emacs
-nix-env -i neovim
-nix-env -i vim
-nix-env -i ripgrep
-nix-env -i tree
-nix-env -i tig
-nix-env -i nodejs
-nix-env -i rustup
-nix-env -i aspell
-nix-env -f '<nixpkgs>' -iA aspellDicts.en
-```
-
-* Setup spacemacs: 
-
-```
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-cd ~/.emacs.d && git checkout develop`
-```
-
-* Setup git:
-
-```
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-```
 
 
 **License:** MIT
