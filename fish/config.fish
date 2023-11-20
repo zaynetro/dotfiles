@@ -1,7 +1,9 @@
-# Multi-user installation
-fish_add_path /nix/var/nix/profiles/default/bin
-if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.fish;
-    . /nix/var/nix/profiles/default/etc/profile.d/nix.fish;
+
+# Nix installer tries to put this under /etc/fish if that file exists.
+# I manage fish with Nix so it is not there during Nix installation.
+# Ref: https://github.com/DeterminateSystems/nix-installer/blob/df9610edba01194e3c342c13ddba80f2251304c4/src/action/common/configure_shell_profile.rs#L69
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish;
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
 end
 
 set -x EDITOR nvim
