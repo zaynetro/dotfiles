@@ -1,0 +1,14 @@
+Open new window      # cmd+enter OR ctrl+shift+enter
+New OS window        # ctrl+shift+n OR cmd+n
+Resize window        # cmd+r
+Focus window         # cmd+{0,1,...}
+Previous window      # ctrl+shift+[
+Next window          # ctrl+shift+]
+Move window forward  # ctrl+shift+f
+Open last command's output in the pager  # ctrl+shift+g
+Open any command's output in the pager   # ctrl+shift+right-click
+Reload config file       # ctrl+cmd+,
+Open URL in the browser  # ctrl+shift+e
+Switch between layouts   # ctrl+shift+l
+Open kitty shell         # ctrl+shift+esc
+Kitty shell: Set terminal layout  # goto-layout grid

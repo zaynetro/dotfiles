@@ -1,0 +1,1 @@
+Start dev shell  # nix-shell -p jq  OR  nix develop nixpkgs#jq

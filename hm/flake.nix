@@ -18,11 +18,22 @@
     let
       system = "aarch64-darwin";
       username = "roman";
+      file = builtins.readFile;
 
       # pkgs definitions below allow to set up overlays:  https://nixos.wiki/wiki/Overlays#In_a_Nix_flake
       pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
       fenix = fenixsrc.packages.${system};
+
+      # Store cheatsheet docs in Nix store
+      docFiles = builtins.attrNames (builtins.readDir ../docs);
+      storeDoc = name: pkgs.writeTextDir "docs/${name}" (file ../docs/${name});
+      docPaths = map storeDoc docFiles;
+      docs = pkgs.symlinkJoin {
+        name = "docs";
+        paths = docPaths;
+      };
+
     in
     {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
@@ -33,6 +44,7 @@
         extraSpecialArgs = {
           inherit pkgs-unstable;
           inherit fenix;
+          inherit docs;
         };
       };
 

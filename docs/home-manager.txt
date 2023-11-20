@@ -1,0 +1,2 @@
+Init Home Manager       # nix run home-manager/release-23.05 -- init ~/Code/dotfiles/hm
+Activate configuration  # home-manager switch --flake ~/Code/dotfiles/hm
