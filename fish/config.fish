@@ -24,6 +24,9 @@ fish_add_path ~/.local/bin
 fish_add_path ~/.pub-cache/bin
 fish_add_path ~/Code/flutter/bin
 
+# Deno
+fish_add_path ~/.deno/bin
+
 # Add device specific overrides
 if test -e ~/.config/fish/local.fish;
     . ~/.config/fish/local.fish
