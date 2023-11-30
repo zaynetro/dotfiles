@@ -11,7 +11,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.05";
+  home.stateVersion = "23.11";
 
   home.packages = [
     # Editor
@@ -44,7 +44,7 @@
     # pkgs-unstable.youtube-dl
     pkgs.zstd
     # pkgs.zola
-    pkgs-unstable.shadowsocks-rust
+    pkgs.shadowsocks-rust
 
     # Node
     pkgs.nodePackages.typescript-language-server
@@ -59,7 +59,7 @@
     # pkgs-unstable.flyctl
 
     # Go
-    pkgs-unstable.go
+    pkgs.go
     pkgs-unstable.gopls
 
     # Python
