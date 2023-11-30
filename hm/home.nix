@@ -33,6 +33,7 @@
     pkgs-unstable.rust-analyzer
 
     # Tools
+    pkgs.git
     pkgs.shellcheck
     pkgs-unstable.deno
     # pkgs-unstable.duckdb
@@ -47,27 +48,23 @@
 
     # Node
     pkgs.nodePackages.typescript-language-server
-    pkgs.nodejs
+    # pkgs.nodejs
 
     # Elixir
     # pkgs-unstable.erlang_26
     # pkgs-unstable.elixir_1_15
     # pkgs-unstable.elixir-ls
 
-    # Nats:
-    # pkgs.natscli
-    # pkgs-unstable.nats-server
-
     # Cloud:
     # pkgs-unstable.flyctl
 
     # Go
-    # pkgs.go
-    # pkgs.gopls
+    pkgs-unstable.go
+    pkgs-unstable.gopls
 
     # Python
-    # pkgs-unstable.poetry
-    # pkgs.python311
+    pkgs.poetry
+    pkgs.python310
 
     # Fonts
     pkgs.fantasque-sans-mono
@@ -80,22 +77,7 @@
       runtimeInputs = [ pkgs.fzf pkgs.gnugrep docs ];
       text = ''
         cd ${docs}/docs
-        selected=$(grep --line-buffered --color=never -H -r "" -- * | fzf --height=40%)
-
-        file_with_name=$(echo "$selected" | awk -F# '{print $1}')
-        file=$(echo "$file_with_name" | awk -F: '{print $1}')
-        # Last awk command trims leading and trailing whitespace
-        name=$(echo "$file_with_name" | awk -F: '{print $2}' | awk '{$1=$1};1')
-        details=$(echo "$selected" | awk -F# '{print $2}')
-
-        grey="\e[37m"
-        italic="\e[3m"
-        clear="\e[0m"
-
-        # shellcheck disable=SC3037
-        echo -e "''${grey}''${file}:$clear"
-        # shellcheck disable=SC3037
-        echo -e "  $name  $italic#''${details}$clear"
+        ${builtins.readFile ../scripts/rzsnova.sh}
       '';
     })
   ];
@@ -112,24 +94,22 @@
         fi
       '';
     };
+
+    # I don't use programs.git.extraConfig because the order of sections is important.
+    ".config/git/config" = {
+      text = ''
+        [user]
+        	email = "roman@zaynetro.com"
+        	name = "Roman Zaynetdinov"
+
+        [init]
+        	defaultBranch = main
+      '';
+    };
   };
 
   programs.home-manager.enable = true;
 
-  # Cheatsheet
-  # cmd+enter OR ctrl+shift+enter  Open new pane
-  # ctrl+shift+l      Switch between layouts
-  # ctrl+shift+esc    Open kitty shell (e.g there I can `goto-layout grid`)
-  # ctrl+cmd+,        Reload config file
-  # ctrl+shift+g      Open last command's output in the pager
-  # ctrl+shift+right-click  Open any command's output in the pager
-  # ctrl+shift+e      Open URL in the browser
-  # ctrl+shift+n OR cmd+n  New OS window
-  # cmd+r             Resize pane
-  # cmd+{0,1,...}     Focus pane
-  # ctrl+shift+[      Previous pane
-  # ctrl+shift+]      Next pane
-  # ctrl+shift+f      Move pane forward
   programs.kitty = {
     enable = true;
 
@@ -147,6 +127,8 @@
       tab_bar_style        powerline
       tab_powerline_style  round
 
+      scrollback_lines  100000
+
       # Use ctrl+shift+enter to open new window in home dir
       map cmd+enter        new_window_with_cwd
       # Use ctrl+shift+t to open new tab in home dir
@@ -155,12 +137,6 @@
 
     # Use `kitten themes` to trial themes
     theme = "Gruvbox Light";
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Roman Zaynetdinov";
-    userEmail = "roman@zaynetro.com";
   };
 
   programs.fish = {

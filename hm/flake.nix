@@ -37,6 +37,7 @@
     in
     {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+        # inherit is the same as: `pkgs = pkgs;`
         inherit pkgs;
 
         modules = [ ./home.nix ];

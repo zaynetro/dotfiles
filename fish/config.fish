@@ -27,6 +27,9 @@ fish_add_path ~/Code/flutter/bin
 # Deno
 fish_add_path ~/.deno/bin
 
+# Global utilities (like Docker)
+fish_add_path /usr/local/bin
+
 # Add device specific overrides
 if test -e ~/.config/fish/local.fish;
     . ~/.config/fish/local.fish
