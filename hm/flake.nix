@@ -40,7 +40,12 @@
         # inherit is the same as: `pkgs = pkgs;`
         inherit pkgs;
 
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          # TODO: make this conditional
+          # https://nix.dev/tutorials/file-sets
+          # ./work.nix
+        ];
 
         extraSpecialArgs = {
           inherit pkgs-unstable;

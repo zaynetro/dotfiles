@@ -23,13 +23,23 @@
     # Can't use pkgs.rustup because it provides rust-analyzer symlink that conflicts with an actual rust-analyzer...
     # Use `fenix.complete.withComponents` for nightly components
     # (fenix.complete.withComponents [
-    (fenix.stable.withComponents [
-      "cargo"
-      "clippy"
-      "rust-src"
-      "rustc"
-      "rustfmt"
+    # (fenix.stable.withComponents [
+    #   "cargo"
+    #   "clippy"
+    #   "rust-src"
+    #   "rustc"
+    #   "rustfmt"
+    # ])
+    # Use `complete` instead of `stable` for nightly components
+    (with fenix; with stable; combine [
+      cargo
+      clippy
+      rust-src
+      rustc
+      rustfmt
+      targets.wasm32-unknown-unknown.stable.rust-std
     ])
+
     pkgs-unstable.rust-analyzer
 
     # Tools
@@ -47,6 +57,7 @@
     pkgs.shadowsocks-rust
 
     # Node
+    pkgs.typescript # Needed for the language server
     pkgs.nodePackages.typescript-language-server
     # pkgs.nodejs
 
@@ -65,6 +76,7 @@
     # Python
     pkgs.poetry
     pkgs.python310
+    pkgs.nodePackages.pyright
 
     # Fonts
     pkgs.fantasque-sans-mono
@@ -85,6 +97,8 @@
   home.file = {
     ".config/doom" = {
       source = ../emacs/doom.d;
+      # TODO: running this from here generates invalid Doom's .env file :/
+      # TODO: I have to run the sync manually from outside of home manager
       onChange = ''
         export PATH=~/.nix-profile/bin:$PATH
         if [[ -x ".config/emacs/bin/doom" ]]; then
@@ -133,6 +147,9 @@
       map cmd+enter        new_window_with_cwd
       # Use ctrl+shift+t to open new tab in home dir
       map cmd+t        new_tab_with_cwd
+
+      # Use left option key as Alt. By default it inserts unicode symbols.
+      macos_option_as_alt left
     '';
 
     # Use `kitten themes` to trial themes

@@ -48,17 +48,6 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Sync/org/")
 
-(after! org-capture
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Sync/org/tasks.org" "Tasks")
-           "* TODO %?\n%T\n%i\n%a")
-          ("j" "Journal" entry (file+olp+datetree "~/Sync/org/journal.org")
-           "* %?\n%U\n%i")
-          ("w" "Work log" entry (file+olp+datetree "~/Sync/org/work-log.org")
-           "* %?\t:work:lekane:\n%u\n%i")
-          ("n" "Note" entry (file+headline "~/Sync/org/notes.org" "Notes")
-           "* %?\n%U\n%i"))))
-
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -97,10 +86,10 @@
           (lambda (arg) (call-interactively #'dap-hydra)))
 
 ;; Remove ".project" marker
-(after! projectile
-  (setq projectile-project-root-files-bottom-up
-        '(".projectile"
-          ".git")))
+;; (after! projectile
+;;   (setq projectile-project-root-files-bottom-up
+;;         '(".projectile"
+;;           ".git")))
 
 (setq gc-cons-threshold 100000000)
 
@@ -156,4 +145,8 @@
 ;;   :init
 ;;   (setq lsp-tailwindcss-add-on-mode t))
 
-(setq lsp-elixir-server-command '("elixir-ls"))
+;; (setq lsp-elixir-server-command '("elixir-ls"))
+
+(after! lsp-mode
+  ;; https://github.com/emacs-lsp/lsp-mode/issues/3577#issuecomment-1709232622
+  (delete 'lsp-terraform lsp-client-packages))
