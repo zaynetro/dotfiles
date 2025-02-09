@@ -1,0 +1,1 @@
+Create a temporary pod (e.g for curl)  # kubectl run curl-roman --image=alpine -i --tty --rm

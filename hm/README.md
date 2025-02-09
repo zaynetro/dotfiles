@@ -14,6 +14,7 @@ experimental-features = nix-command flakes
 
 ## Configure
 
+* Init home manager: `nix run home-manager/release-24.05 -- init --switch ~/Code/dotfiles/hm`
 * Configure in `home.nix`.
 * Switch to new generation: `home-manager switch --flake ~/Code/dotfiles/hm`
 

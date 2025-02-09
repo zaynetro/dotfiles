@@ -37,24 +37,30 @@
       rust-src
       rustc
       rustfmt
-      targets.wasm32-unknown-unknown.stable.rust-std
+      # targets.wasm32-unknown-unknown.stable.rust-std
+      # targets.aarch64-apple-ios.stable.rust-std
+      # targets.aarch64-apple-ios-sim.stable.rust-std
     ])
 
     pkgs-unstable.rust-analyzer
+
+    # For openssl-sys crate building
+    # pkgs.pkgconfig
+    # pkgs.openssl
 
     # Tools
     pkgs.git
     pkgs.shellcheck
     pkgs-unstable.deno
     # pkgs-unstable.duckdb
-    pkgs.protobuf
+    # pkgs.protobuf
     pkgs.sqlite
     pkgs.tig
     pkgs.tree
     # pkgs-unstable.youtube-dl
     pkgs.zstd
-    # pkgs.zola
-    pkgs.shadowsocks-rust
+    # pkgs.shadowsocks-rust
+    pkgs-unstable.helix
 
     # Node
     pkgs.typescript # Needed for the language server
@@ -69,14 +75,32 @@
     # Cloud:
     # pkgs-unstable.flyctl
 
+    # Nix
+    pkgs.nixd
+
+    # Markdown
+    pkgs.marksman
+
     # Go
     pkgs.go
     pkgs-unstable.gopls
 
     # Python
     pkgs.poetry
-    pkgs.python310
-    pkgs.nodePackages.pyright
+    pkgs.python313
+    pkgs.pyright
+    # pkgs-unstable.basedpyright
+
+    # Zig
+    # pkgs-unstable.zig
+    # pkgs-unstable.zls
+
+    # Creates wrong file permissions so using a downloaded SDK :/
+    # pkgs.flutter327
+    # pkgs.cocoapods
+    # pkgs-unstable.flutter_rust_bridge_codegen
+    # Can't install rustup but it is needed to build Flutter with Rust
+    # Use: nix shell nixpkgs#rustup
 
     # Fonts
     pkgs.fantasque-sans-mono
@@ -97,15 +121,10 @@
   home.file = {
     ".config/doom" = {
       source = ../emacs/doom.d;
-      # TODO: running this from here generates invalid Doom's .env file :/
-      # TODO: I have to run the sync manually from outside of home manager
       onChange = ''
-        export PATH=~/.nix-profile/bin:$PATH
-        if [[ -x ".config/emacs/bin/doom" ]]; then
-          .config/emacs/bin/doom sync
-        else
-          echo 'Doom is not set up yet';
-        fi
+        echo "............................................"
+        echo "Remember to run: .config/emacs/bin/doom sync"
+        echo "............................................"
       '';
     };
 
@@ -118,6 +137,44 @@
 
         [init]
         	defaultBranch = main
+      '';
+    };
+
+    # Helix writes a debug log to ~/.cache/helix/helix.log
+    # You can also start Helix in verbose mode: hx -v
+    # Use :log-open command to open log file in the editor.
+    ".config/helix/config.toml" = {
+      text = ''
+        # :theme and then tab to cycle between themes
+        theme = "everforest_light"
+
+        [editor]
+        line-number = "relative"
+
+        # Minimum severity to show a diagnostic after the end of a line:
+        end-of-line-diagnostics = "hint"
+
+        [editor.inline-diagnostics]
+        # Minimum severity to show a diagnostic on the primary cursor's line.
+        # Note that `cursor-line` diagnostics are hidden in insert mode.
+        cursor-line = "error"
+        # Minimum severity to show a diagnostic on other lines:
+        other-lines = "error"
+
+        [keys.normal.space]
+        minus = "file_picker_in_current_buffer_directory"
+      '';
+    };
+
+    ".config/helix/languages.toml" = {
+      text = ''
+        [language-server.pyright]
+        command = "pyright-langserver"
+        args = ["--stdio"]
+
+        [[language]]
+        name = "python"
+        language-servers = ["pyright"]
       '';
     };
   };
@@ -152,8 +209,9 @@
       macos_option_as_alt left
     '';
 
-    # Use `kitten themes` to trial themes
-    theme = "Gruvbox Light";
+    # Use `kitten themes` to trial themes.
+    # Find the file name here: https://github.com/kovidgoyal/kitty-themes/tree/master/themes
+    themeFile = "gruvbox-light";
   };
 
   programs.fish = {

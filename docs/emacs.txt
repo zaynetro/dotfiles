@@ -1,2 +1,3 @@
 Insert a tab  # ctrl+q tab
 (git) Open file in the browser  # space+g+o+o
+Export search results to a buffer (vertico doom docs)  # ctrl+; and embark-export or embark-collect
